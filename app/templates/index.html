@@ -1,0 +1,228 @@
+{% extends "layouts/base.html" %} {% block title %}Home - Phone Repair Advisor{%
+endblock %} {% block main_class %}{% endblock %} {% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section-with-bg">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Hero Text -->
+      <div class="col-lg-6 col-md-12 hero-content" data-aos="fade-right">
+        <h1 class="display-3 animate-title">Fix Your Phone Like a Pro</h1>
+        <p class="lead animate-subtitle">
+          AI-powered diagnostics and expert repair guidance at your fingertips.
+          Save time, save money, repair smarter.
+        </p>
+        <div class="d-flex gap-3 flex-wrap animate-buttons">
+          {% if current_user.is_authenticated %}
+          <a
+            href="{{ url_for('advisor.diagnose') }}"
+            class="btn btn-hero-primary"
+          >
+            <i class="bi bi-search me-2"></i>Start Diagnosis
+          </a>
+          <a
+            href="{{ url_for('advisor.history') }}"
+            class="btn btn-hero-secondary"
+          >
+            <i class="bi bi-clock-history me-2"></i>View History
+          </a>
+          {% else %}
+          <a href="{{ url_for('auth.register') }}" class="btn btn-hero-primary">
+            <i class="bi bi-person-plus me-2"></i>Get Started Free
+          </a>
+          <a href="{{ url_for('auth.login') }}" class="btn btn-hero-secondary">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+          </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Hero Image -->
+      <div
+        class="col-lg-6 col-md-12 hero-phone-image text-center"
+        data-aos="fade-left"
+      >
+        <img
+          src="{{ url_for('static', filename='images/iphone.png') }}"
+          alt="Smartphone Repair"
+          class="img-fluid"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator">
+    <div class="mouse">
+      <div class="wheel"></div>
+    </div>
+    <p>Scroll Down</p>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section" data-aos="fade-up">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-6 mb-4 mb-md-0">
+        <div class="stat-item">
+          <div class="stat-number counter" data-target="10000">0</div>
+          <div class="stat-label">Repairs Diagnosed</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6 mb-4 mb-md-0">
+        <div class="stat-item">
+          <div class="stat-number counter" data-target="95">0</div>
+          <div class="stat-label">Success Rate</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">AI Support</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-item">
+          <div class="stat-number counter" data-target="5000">0</div>
+          <div class="stat-label">Happy Users</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <h2 class="display-4 fw-bold mb-3 section-title">Why Choose Us?</h2>
+      <p class="lead section-subtitle">
+        Advanced technology meets simple solutions
+      </p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="bi bi-cpu"></i>
+          </div>
+          <h3>AI-Powered Diagnosis</h3>
+          <p>
+            Our advanced AI analyzes your phone issues and provides accurate
+            repair recommendations instantly.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="bi bi-list-check"></i>
+          </div>
+          <h3>Step-by-Step Guides</h3>
+          <p>
+            Get detailed repair instructions with images and videos to fix your
+            phone yourself.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h3>Expert Verified</h3>
+          <p>
+            All repair solutions are verified by certified technicians for
+            safety and effectiveness.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="bi bi-wallet2"></i>
+          </div>
+          <h3>Cost Estimates</h3>
+          <p>
+            Know exactly how much repairs will cost before you commit to fixing
+            your device.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="bi bi-clock-history"></i>
+          </div>
+          <h3>Repair History</h3>
+          <p>
+            Track all your diagnoses and repairs in one convenient place for
+            future reference.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="bi bi-lightning-charge"></i>
+          </div>
+          <h3>Quick & Easy</h3>
+          <p>
+            Get instant results in minutes. No waiting, no hassle, just fast
+            solutions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AOS Animation Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true,
+    offset: 100,
+  });
+
+  // Counter Animation
+  function animateCounter() {
+    const counters = document.querySelectorAll(".counter");
+    counters.forEach((counter) => {
+      const target = parseInt(counter.getAttribute("data-target"));
+      const increment = target / 100;
+      let current = 0;
+
+      const updateCounter = () => {
+        if (current < target) {
+          current += increment;
+          counter.textContent = Math.ceil(current) + (target > 100 ? "+" : "%");
+          setTimeout(updateCounter, 20);
+        } else {
+          counter.textContent = target + (target > 100 ? "+" : "%");
+        }
+      };
+      updateCounter();
+    });
+  }
+
+  // Trigger counter animation when stats section is visible
+  const statsSection = document.querySelector(".stats-section");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCounter();
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+
+  if (statsSection) {
+    observer.observe(statsSection);
+  }
+</script>
+
+{% endblock %}

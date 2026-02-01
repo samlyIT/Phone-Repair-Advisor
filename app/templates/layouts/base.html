@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Phone Repair Advisor{% endblock %}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <i class="bi bi-phone-fill"></i> Phone Repair Advisor
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('index') }}">
+                  <i class="bi bi-house-fill"></i> Home
+                </a>
+              </li>
+              {% if current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('advisor.diagnose') }}">
+                  <i class="bi bi-search"></i> Diagnose
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('advisor.history') }}">
+                  <i class="bi bi-clock-history"></i> History
+                </a>
+              </li>
+              {% if current_user.has_permission('admin_access') %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('admin.dashboard') }}">
+                  <i class="bi bi-speedometer2"></i> Admin
+                </a>
+              </li>
+              {% endif %}
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="userDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <i class="bi bi-person-circle"></i> {{ current_user.username
+                  }}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('auth.profile') }}"
+                    >
+                      <i class="bi bi-person"></i> Profile
+                    </a>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('auth.logout') }}"
+                    >
+                      <i class="bi bi-box-arrow-right"></i> Logout
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.login') }}">
+                  <i class="bi bi-box-arrow-in-right"></i> Login
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link btn-register"
+                  href="{{ url_for('auth.register') }}"
+                >
+                  <i class="bi bi-person-plus"></i> Register
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="{% block main_class %}main-content{% endblock %}">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <div class="container">
+        {% for category, message in messages %}
+        <div
+          class="alert alert-{{ category }} alert-dismissible fade show"
+          role="alert"
+        >
+          {{ message }}
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+          ></button>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %} {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer-dark text-white text-center py-4">
+      <div class="container">
+        <div class="row mb-3">
+          <div class="col-md-4 mb-3 mb-md-0">
+            <h5><i class="bi bi-phone-fill"></i> Phone Repair Advisor</h5>
+            <p class="small">Your trusted AI-powered repair assistant</p>
+          </div>
+          <div class="col-md-4 mb-3 mb-md-0">
+            <h6>Quick Links</h6>
+            <ul class="list-unstyled">
+              <li>
+                <a href="{{ url_for('index') }}" class="text-white-50">Home</a>
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('advisor.diagnose') }}"
+                  class="text-white-50"
+                  >Diagnose</a
+                >
+              </li>
+              <li>
+                <a href="{{ url_for('auth.register') }}" class="text-white-50"
+                  >Register</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6>Follow Us</h6>
+            <div class="social-icons">
+              <a href="#" class="text-white me-3"
+                ><i class="bi bi-facebook"></i
+              ></a>
+              <a href="#" class="text-white me-3"
+                ><i class="bi bi-twitter"></i
+              ></a>
+              <a href="#" class="text-white me-3"
+                ><i class="bi bi-instagram"></i
+              ></a>
+              <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+        <hr class="bg-white-50" />
+        <p class="mb-0 small">
+          &copy; 2026 Phone Repair Advisor. All Rights Reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+      $(document).ready(function () {
+        $(".select2").select2({
+          width: "100%",
+        });
+
+        // Navbar scroll effect
+        $(window).scroll(function () {
+          var scroll = $(window).scrollTop();
+
+          if (scroll >= 100) {
+            $("#mainNavbar").addClass("navbar-scrolled");
+          } else {
+            $("#mainNavbar").removeClass("navbar-scrolled");
+          }
+        });
+      });
+    </script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

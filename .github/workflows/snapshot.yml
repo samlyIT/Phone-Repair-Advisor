@@ -1,0 +1,37 @@
+name: Generate Admin Page Snapshots
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch: {}
+
+jobs:
+  snapshots:
+    runs-on: ubuntu-latest
+    env:
+      SNAPSHOT_CONFIG: testing
+      FLASK_ENV: testing
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run snapshot generator
+        run: |
+          # Run the snapshot script (uses testing config and creates tables if needed)
+          python scripts/generate_admin_snapshots.py
+
+      - name: Upload snapshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-snapshots
+          path: docs/screenshots/

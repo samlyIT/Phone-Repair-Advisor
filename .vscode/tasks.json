@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run pytest -q",
+			"type": "shell",
+			"command": "pytest -q",
+			"isBackground": false
+		}
+	]
+}

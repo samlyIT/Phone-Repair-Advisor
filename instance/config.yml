@@ -1,0 +1,18 @@
+# Domain-specific knowledge for the expert system
+
+# Typical costs for repairs (example values)
+typical_costs:
+  screen_replacement: [50.00, 150.00]
+  battery_replacement: [30.00, 80.00]
+  charging_port: [40.00, 100.00]
+  water_damage_cleaning: [70.00, 200.00]
+  camera_replacement: [60.00, 120.00]
+  speaker_replacement: [30.00, 70.00]
+  software_fix: [20.00, 50.00]
+
+# Severity levels mapping (example)
+severity_levels:
+  low: 1
+  medium: 2
+  high: 3
+  critical: 4

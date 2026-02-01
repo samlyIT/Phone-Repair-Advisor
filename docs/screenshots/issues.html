@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Issues</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/static/css/style.css"
+    />
+    <!-- Select2 CSS for enhanced multi-selects -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <i class="bi bi-phone"></i> Phone Repair Advisor
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/advisor/diagnose">
+                <i class="bi bi-search"></i> Diagnose
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/advisor/history">
+                <i class="bi bi-clock-history"></i> History
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard">
+                <i class="bi bi-speedometer2"></i> Admin
+              </a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="userDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-person-circle"></i> admin
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="/auth/profile"
+                    >Profile</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="/auth/logout"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        
+    </div>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Manage Issues</h1>
+    <a href="/admin/issues/add" class="btn btn-primary"
+      >Add New Issue</a
+    >
+  </div>
+
+     
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Phone</th>
+          <th>Category</th>
+          <th>Name</th>
+          <th>Symptoms</th>
+          <th>Repairs</th>
+          <th>Severity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>
+             OnePlus OnePlus 10
+            (2022) 
+          </td>
+          <td>Audio</td>
+          <td>Devolved mobile model Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM001 — Avoid thing true the relate manager anyone. issue.</li>
+              
+              <li>SYM010 — Factor suggest party dream police consumer buy. issue.</li>
+              
+              <li>SYM022 — Soon price executive simply agree public. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/11"
+                  >Repair #11 (Priority: 3)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>Low</td>
+          <td>
+            <a
+              href="/admin/issues/edit/22"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/22"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Samsung Galaxy S24
+            (2024) 
+          </td>
+          <td>Audio</td>
+          <td>Monitored real-time paradigm Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM006 — Along save public early beautiful. issue.</li>
+              
+              <li>SYM021 — Ever fact news down sister brother this. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+             <span class="text-muted">No repairs</span> 
+          </td>
+          <td>Low</td>
+          <td>
+            <a
+              href="/admin/issues/edit/25"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/25"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Xiaomi Xiaomi 13
+            (2017) 
+          </td>
+          <td>Battery</td>
+          <td>Reduced systemic website Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM022 — Soon price executive simply agree public. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/9"
+                  >Repair #9 (Priority: 10)</a
+                >
+              </li>
+              
+              <li>
+                <a href="/admin/repairs/edit/21"
+                  >Repair #21 (Priority: 6)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>Medium</td>
+          <td>
+            <a
+              href="/admin/issues/edit/3"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/3"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Samsung Galaxy S24
+            (2020) 
+          </td>
+          <td>Battery</td>
+          <td>Team-oriented asymmetric secured line Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM007 — Significant test individual exist hard. issue.</li>
+              
+              <li>SYM021 — Ever fact news down sister brother this. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+             <span class="text-muted">No repairs</span> 
+          </td>
+          <td>Critical</td>
+          <td>
+            <a
+              href="/admin/issues/edit/13"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/13"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Samsung Galaxy S24
+            (2020) 
+          </td>
+          <td>Camera</td>
+          <td>Enterprise-wide actuating utilization Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM003 — Information well wait range. issue.</li>
+              
+              <li>SYM021 — Ever fact news down sister brother this. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+             <span class="text-muted">No repairs</span> 
+          </td>
+          <td>Low</td>
+          <td>
+            <a
+              href="/admin/issues/edit/1"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/1"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Google Pixel 6
+            (2022) 
+          </td>
+          <td>Camera</td>
+          <td>Function-based incremental pricing structure Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM008 — Investment difficult truth official go our. issue.</li>
+              
+              <li>SYM011 — Actually turn foreign feel structure. issue.</li>
+              
+              <li>SYM023 — Room which media evidence travel assume hear. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+             <span class="text-muted">No repairs</span> 
+          </td>
+          <td>High</td>
+          <td>
+            <a
+              href="/admin/issues/edit/24"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/24"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Samsung Galaxy S24
+            (2024) 
+          </td>
+          <td>Camera</td>
+          <td>Intuitive foreground complexity Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM007 — Significant test individual exist hard. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/8"
+                  >Repair #8 (Priority: 8)</a
+                >
+              </li>
+              
+              <li>
+                <a href="/admin/repairs/edit/13"
+                  >Repair #13 (Priority: 9)</a
+                >
+              </li>
+              
+              <li>
+                <a href="/admin/repairs/edit/19"
+                  >Repair #19 (Priority: 9)</a
+                >
+              </li>
+              
+              <li>
+                <a href="/admin/repairs/edit/24"
+                  >Repair #24 (Priority: 8)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>Medium</td>
+          <td>
+            <a
+              href="/admin/issues/edit/8"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/8"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Google Pixel 6
+            (2022) 
+          </td>
+          <td>Camera</td>
+          <td>Object-based discrete project Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM023 — Room which media evidence travel assume hear. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/15"
+                  >Repair #15 (Priority: 10)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>High</td>
+          <td>
+            <a
+              href="/admin/issues/edit/14"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/14"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Nokia X20
+            (2020) 
+          </td>
+          <td>Charging</td>
+          <td>Devolved non-volatile circuit Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM012 — Loss perhaps level get. issue.</li>
+              
+              <li>SYM016 — Tell I any several data wind. issue.</li>
+              
+              <li>SYM020 — Here cup arrive down enough. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/16"
+                  >Repair #16 (Priority: 8)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>High</td>
+          <td>
+            <a
+              href="/admin/issues/edit/5"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/5"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Google Pixel 8 Pro
+            (2022) 
+          </td>
+          <td>Charging</td>
+          <td>Face-to-face value-added info-mediaries Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM003 — Information well wait range. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+             <span class="text-muted">No repairs</span> 
+          </td>
+          <td>Critical</td>
+          <td>
+            <a
+              href="/admin/issues/edit/11"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/11"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Google Pixel 6
+            (2022) 
+          </td>
+          <td>Charging</td>
+          <td>Horizontal bi-directional firmware Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM017 — Finally on lose try phone turn senior short. issue.</li>
+              
+              <li>SYM021 — Ever fact news down sister brother this. issue.</li>
+              
+              <li>SYM023 — Room which media evidence travel assume hear. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/18"
+                  >Repair #18 (Priority: 10)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>Medium</td>
+          <td>
+            <a
+              href="/admin/issues/edit/18"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/18"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Sony Xperia 5 V
+            (2018) 
+          </td>
+          <td>Charging</td>
+          <td>Implemented methodical knowledgebase Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM001 — Avoid thing true the relate manager anyone. issue.</li>
+              
+              <li>SYM015 — Child if these us production chance. issue.</li>
+              
+              <li>SYM018 — Prepare base respond interesting others. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/4"
+                  >Repair #4 (Priority: 9)</a
+                >
+              </li>
+              
+              <li>
+                <a href="/admin/repairs/edit/7"
+                  >Repair #7 (Priority: 6)</a
+                >
+              </li>
+              
+              <li>
+                <a href="/admin/repairs/edit/20"
+                  >Repair #20 (Priority: 5)</a
+                >
+              </li>
+              
+              <li>
+                <a href="/admin/repairs/edit/25"
+                  >Repair #25 (Priority: 5)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>Low</td>
+          <td>
+            <a
+              href="/admin/issues/edit/23"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/23"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Nokia X20
+            (2020) 
+          </td>
+          <td>Charging</td>
+          <td>Managed multi-tasking open architecture Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM009 — Evening her assume. issue.</li>
+              
+              <li>SYM010 — Factor suggest party dream police consumer buy. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/10"
+                  >Repair #10 (Priority: 10)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>High</td>
+          <td>
+            <a
+              href="/admin/issues/edit/4"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/4"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             OnePlus OnePlus Open
+            (2021) 
+          </td>
+          <td>Charging</td>
+          <td>Multi-tiered encompassing framework Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM016 — Tell I any several data wind. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+             <span class="text-muted">No repairs</span> 
+          </td>
+          <td>Medium</td>
+          <td>
+            <a
+              href="/admin/issues/edit/16"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/16"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Google Pixel 8 Pro
+            (2022) 
+          </td>
+          <td>Charging</td>
+          <td>Open-architected content-based projection Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM007 — Significant test individual exist hard. issue.</li>
+              
+              <li>SYM013 — Participant box one inside team. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/12"
+                  >Repair #12 (Priority: 7)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>High</td>
+          <td>
+            <a
+              href="/admin/issues/edit/12"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/12"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Xiaomi Xiaomi 13
+            (2017) 
+          </td>
+          <td>Charging</td>
+          <td>Open-architected even-keeled application Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM002 — Pm image structure many. issue.</li>
+              
+              <li>SYM024 — Mouth help check. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+             <span class="text-muted">No repairs</span> 
+          </td>
+          <td>Low</td>
+          <td>
+            <a
+              href="/admin/issues/edit/21"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/21"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Nokia X20
+            (2020) 
+          </td>
+          <td>Charging</td>
+          <td>Stand-alone directional task-force Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM001 — Avoid thing true the relate manager anyone. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+             <span class="text-muted">No repairs</span> 
+          </td>
+          <td>High</td>
+          <td>
+            <a
+              href="/admin/issues/edit/20"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/20"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Samsung Galaxy S24
+            (2020) 
+          </td>
+          <td>Charging</td>
+          <td>Universal modular website Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM006 — Along save public early beautiful. issue.</li>
+              
+              <li>SYM013 — Participant box one inside team. issue.</li>
+              
+              <li>SYM025 — Stock goal by economy tough business yet. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+             <span class="text-muted">No repairs</span> 
+          </td>
+          <td>Critical</td>
+          <td>
+            <a
+              href="/admin/issues/edit/7"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/7"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             OnePlus OnePlus Open
+            (2021) 
+          </td>
+          <td>Screen</td>
+          <td>Enhanced well-modulated info-mediaries Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM002 — Pm image structure many. issue.</li>
+              
+              <li>SYM012 — Loss perhaps level get. issue.</li>
+              
+              <li>SYM015 — Child if these us production chance. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/2"
+                  >Repair #2 (Priority: 5)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>Low</td>
+          <td>
+            <a
+              href="/admin/issues/edit/19"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/19"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Samsung Galaxy S24
+            (2020) 
+          </td>
+          <td>Screen</td>
+          <td>Expanded regional toolset Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM009 — Evening her assume. issue.</li>
+              
+              <li>SYM016 — Tell I any several data wind. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/5"
+                  >Repair #5 (Priority: 6)</a
+                >
+              </li>
+              
+              <li>
+                <a href="/admin/repairs/edit/14"
+                  >Repair #14 (Priority: 6)</a
+                >
+              </li>
+              
+              <li>
+                <a href="/admin/repairs/edit/22"
+                  >Repair #22 (Priority: 7)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>Medium</td>
+          <td>
+            <a
+              href="/admin/issues/edit/6"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/6"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Sony Xperia 5 V
+            (2018) 
+          </td>
+          <td>Screen</td>
+          <td>Extended heuristic open architecture Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM006 — Along save public early beautiful. issue.</li>
+              
+              <li>SYM020 — Here cup arrive down enough. issue.</li>
+              
+              <li>SYM022 — Soon price executive simply agree public. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+             <span class="text-muted">No repairs</span> 
+          </td>
+          <td>Critical</td>
+          <td>
+            <a
+              href="/admin/issues/edit/2"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/2"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Nokia X20
+            (2020) 
+          </td>
+          <td>Screen</td>
+          <td>Grass-roots needs-based workforce Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM008 — Investment difficult truth official go our. issue.</li>
+              
+              <li>SYM020 — Here cup arrive down enough. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/1"
+                  >Repair #1 (Priority: 6)</a
+                >
+              </li>
+              
+              <li>
+                <a href="/admin/repairs/edit/17"
+                  >Repair #17 (Priority: 7)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>Medium</td>
+          <td>
+            <a
+              href="/admin/issues/edit/9"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/9"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Google Pixel 8 Pro
+            (2022) 
+          </td>
+          <td>Screen</td>
+          <td>Integrated actuating hub Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM015 — Child if these us production chance. issue.</li>
+              
+              <li>SYM022 — Soon price executive simply agree public. issue.</li>
+              
+              <li>SYM023 — Room which media evidence travel assume hear. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/6"
+                  >Repair #6 (Priority: 3)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>Critical</td>
+          <td>
+            <a
+              href="/admin/issues/edit/10"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/10"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Samsung Galaxy S24
+            (2024) 
+          </td>
+          <td>Software</td>
+          <td>Exclusive transitional protocol Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM007 — Significant test individual exist hard. issue.</li>
+              
+              <li>SYM017 — Finally on lose try phone turn senior short. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/23"
+                  >Repair #23 (Priority: 9)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>Low</td>
+          <td>
+            <a
+              href="/admin/issues/edit/15"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/15"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+             Samsung Galaxy S24
+            (2020) 
+          </td>
+          <td>Software</td>
+          <td>Multi-layered bi-directional time-frame Failure</td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>SYM007 — Significant test individual exist hard. issue.</li>
+              
+              <li>SYM012 — Loss perhaps level get. issue.</li>
+              
+              <li>SYM024 — Mouth help check. issue.</li>
+              
+            </ul>
+            
+          </td>
+          <td>
+            
+            <ul class="mb-0">
+              
+              <li>
+                <a href="/admin/repairs/edit/3"
+                  >Repair #3 (Priority: 6)</a
+                >
+              </li>
+              
+            </ul>
+            
+          </td>
+          <td>High</td>
+          <td>
+            <a
+              href="/admin/issues/edit/17"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="/admin/issues/delete/17"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this issue?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+</div>
+</main>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-muted py-4 mt-5">
+      <div class="container">
+        <p class="mb-0">
+          &copy; 2024 Phone Repair Advisor Expert System | Powered by AI
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/main.js"></script>
+
+    <!-- jQuery and Select2 (loaded after main.js; initialization below handles document ready state) -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJ+YRF0vP3zvFv6b6e3Yqj8Q+X2c9o9fM1p6U="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+      (function () {
+        function initSelect2() {
+          if (window.jQuery && jQuery().select2) {
+            jQuery(".select2").select2({ width: "100%" });
+          }
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initSelect2);
+        } else {
+          initSelect2();
+        }
+      })();
+    </script>
+
+    
+  </body>
+</html>

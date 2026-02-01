@@ -1,0 +1,124 @@
+{% extends "layouts/base.html" %} {% block title %}Add User{% endblock %} {%
+block extra_css %} {% endblock %} {% block content %}
+<div class="container my-4">
+  <!-- Page Header -->
+  <div class="mb-4">
+    <h2 class="page-title">
+      <i class="bi bi-person-plus me-2"></i> Add New User
+    </h2>
+    <p class="text-muted mb-0">Create a new system user account</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-9">
+      <div class="card shadow-lg form-card">
+        <div class="card-header py-3">
+          <h4><i class="bi bi-person-lines-fill me-2"></i>User Information</h4>
+        </div>
+
+        <div class="card-body p-4">
+          <form method="POST" action="{{ url_for('admin.add_user') }}">
+            <div class="row g-4">
+              <!-- Left -->
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Username</label>
+                  <div class="input-group">
+                    <span class="input-group-text"
+                      ><i class="bi bi-person"></i
+                    ></span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="username"
+                      placeholder="Enter username"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Email</label>
+                  <div class="input-group">
+                    <span class="input-group-text"
+                      ><i class="bi bi-envelope"></i
+                    ></span>
+                    <input
+                      type="email"
+                      class="form-control"
+                      name="email"
+                      placeholder="example@email.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Password</label>
+                  <div class="input-group">
+                    <span class="input-group-text"
+                      ><i class="bi bi-lock"></i
+                    ></span>
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="Create password"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right -->
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Full Name</label>
+                  <div class="input-group">
+                    <span class="input-group-text"
+                      ><i class="bi bi-person-badge"></i
+                    ></span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="full_name"
+                      placeholder="Full name"
+                    />
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Role</label>
+                  <div class="input-group">
+                    <span class="input-group-text"
+                      ><i class="bi bi-shield-lock"></i
+                    ></span>
+                    <select class="form-select" name="role_id" required>
+                      {% for role in roles %}
+                      <option value="{{ role.id }}">{{ role.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <a
+                href="{{ url_for('admin.manage_users') }}"
+                class="btn btn-outline-secondary btn-action"
+              >
+                <i class="bi bi-arrow-left me-1"></i> Cancel
+              </a>
+              <button type="submit" class="btn btn-primary btn-action">
+                <i class="bi bi-check-circle me-1"></i> Add User
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

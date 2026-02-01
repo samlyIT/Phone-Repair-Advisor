@@ -1,0 +1,888 @@
+{% extends "layouts/base.html" %} {% block title %}Diagnose Your Phone{%
+endblock %} {% block content %}
+<!-- Hero Section with Background -->
+<div class="diagnose-hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 animate-fade-in">
+        <div class="hero-content-diagnose">
+          <h1 class="diagnose-main-title">
+            <i class="bi bi-cpu-fill"></i>Powered Phone Diagnosis
+          </h1>
+          <p class="diagnose-subtitle">
+            Advanced technology to identify and solve your phone issues in
+            seconds
+          </p>
+          <div class="trust-badges">
+            <span class="badge-item"
+              ><i class="bi bi-shield-check"></i> Secure</span
+            >
+            <span class="badge-item"
+              ><i class="bi bi-lightning-charge-fill"></i> Fast</span
+            >
+            <span class="badge-item"
+              ><i class="bi bi-star-fill"></i> Accurate</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center animate-float">
+        <img
+          src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=600&auto=format&fit=crop"
+          alt="Phone Diagnosis"
+          class="hero-phone-img"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Diagnosis Form -->
+<div class="container diagnose-container">
+  <div class="diagnosis-card-modern">
+    <!-- Progress Steps Indicator -->
+    <div class="steps-indicator">
+      <div class="step-item active">
+        <div class="step-circle">1</div>
+        <span>Select Phone</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-item">
+        <div class="step-circle">2</div>
+        <span>Choose Symptoms</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-item">
+        <div class="step-circle">3</div>
+        <span>Get Results</span>
+      </div>
+    </div>
+
+    <!-- Form Content -->
+    <form
+      id="diagnosisForm"
+      method="POST"
+      action="{{ url_for('advisor.diagnose') }}"
+    >
+      <div class="row g-4 mt-4">
+        <!-- LEFT: Phone Selection -->
+        <div class="col-lg-6">
+          <div class="selection-panel">
+            <div class="panel-header">
+              <div class="header-icon">
+                <i class="bi bi-phone-fill"></i>
+              </div>
+              <div>
+                <h3>Your Device</h3>
+                <p>Tell us about your phone</p>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <label class="modern-label">
+                <i class="bi bi-building"></i> Brand
+              </label>
+              <div class="select-wrapper">
+                <select
+                  class="modern-select"
+                  id="phone_brand"
+                  name="phone_brand"
+                  required
+                >
+                  <option value="">Choose your phone brand...</option>
+                  {% for brand in phone_brands %}
+                  <option value="{{ brand }}">{{ brand }}</option>
+                  {% endfor %}
+                </select>
+                <i class="bi bi-chevron-down select-arrow"></i>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <label class="modern-label">
+                <i class="bi bi-cpu"></i> Model
+              </label>
+              <div class="select-wrapper">
+                <select
+                  class="modern-select"
+                  id="phone_model"
+                  name="phone_model"
+                  required
+                  disabled
+                >
+                  <option value="">First select a brand...</option>
+                </select>
+                <i class="bi bi-chevron-down select-arrow"></i>
+              </div>
+            </div>
+
+            <!-- Device Preview Card -->
+            <div
+              class="device-preview"
+              id="devicePreview"
+              style="display: none"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400&auto=format&fit=crop"
+                alt="Phone"
+                class="device-img"
+              />
+              <div class="device-info">
+                <h5 id="selectedDevice">Device Selected</h5>
+                <span class="status-badge">Ready for diagnosis</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Symptoms Selection -->
+        <div class="col-lg-6">
+          <div class="selection-panel">
+            <div class="panel-header">
+              <div class="header-icon bg-warning">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+              </div>
+              <div>
+                <h3>Symptoms</h3>
+                <p>What issues are you experiencing?</p>
+              </div>
+            </div>
+
+            <div class="symptoms-container">
+              {% for symptom in symptoms %}
+              <label class="symptom-checkbox">
+                <input
+                  type="checkbox"
+                  name="symptom_codes"
+                  value="{{ symptom.code }}"
+                />
+                <span class="symptom-box">
+                  <i class="bi bi-check-circle-fill check-icon"></i>
+                  <span class="symptom-text">{{ symptom.description }}</span>
+                </span>
+              </label>
+              {% endfor %}
+            </div>
+
+            <div class="selected-count" id="selectedCount">
+              <i class="bi bi-info-circle"></i>
+              <span>0 symptoms selected</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center mt-5">
+        <button type="submit" class="btn-diagnose-modern">
+          <span class="btn-icon">
+            <i class="bi bi-search"></i>
+          </span>
+          <span class="btn-text">Start Diagnosis</span>
+          <span class="btn-shimmer"></span>
+        </button>
+        <p class="help-text mt-3">
+          <i class="bi bi-shield-lock-fill"></i>
+          Your data is secure and confidential
+        </p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Features Section -->
+  <div class="row mt-5 g-4">
+    <div class="col-md-4">
+      <div class="feature-box">
+        <div class="feature-icon-circle">
+          <i class="bi bi-robot"></i>
+        </div>
+        <h5>AI-Powered</h5>
+        <p>Advanced machine learning algorithms analyze your phone issues</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="feature-box">
+        <div class="feature-icon-circle">
+          <i class="bi bi-clock-history"></i>
+        </div>
+        <h5>Instant Results</h5>
+        <p>Get comprehensive diagnosis reports in seconds</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="feature-box">
+        <div class="feature-icon-circle">
+          <i class="bi bi-patch-check-fill"></i>
+        </div>
+        <h5>Expert Solutions</h5>
+        <p>Receive professional repair recommendations</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const phoneBrandSelect = document.getElementById("phone_brand");
+    const phoneModelSelect = document.getElementById("phone_model");
+    const devicePreview = document.getElementById("devicePreview");
+    const selectedDevice = document.getElementById("selectedDevice");
+    const apiBaseUrl =
+      "{{ url_for('advisor.get_phone_models_by_brand', brand='') }}";
+
+    const stepItems = document.querySelectorAll(".step-item");
+
+    // Update phone models
+    function updatePhoneModels() {
+      const selectedBrand = phoneBrandSelect.value;
+      phoneModelSelect.innerHTML = '<option value="">Select model...</option>';
+      phoneModelSelect.disabled = true;
+      devicePreview.style.display = "none";
+
+      if (selectedBrand) {
+        fetch(apiBaseUrl + selectedBrand)
+          .then((res) => res.json())
+          .then((models) => {
+            models.forEach((model) => {
+              const option = document.createElement("option");
+              option.value = model.name;
+              option.textContent = model.name;
+              phoneModelSelect.appendChild(option);
+            });
+            phoneModelSelect.disabled = false;
+            stepItems[0].classList.add("completed");
+            stepItems[1].classList.add("active");
+          });
+      }
+    }
+
+    // Show device preview
+    phoneModelSelect.addEventListener("change", function () {
+      if (this.value) {
+        devicePreview.style.display = "flex";
+        selectedDevice.textContent = phoneBrandSelect.value + " " + this.value;
+      }
+    });
+
+    phoneBrandSelect.addEventListener("change", updatePhoneModels);
+
+    // Count selected symptoms
+    const symptomCheckboxes = document.querySelectorAll(
+      'input[name="symptom_codes"]',
+    );
+    const selectedCount = document
+      .getElementById("selectedCount")
+      .querySelector("span");
+
+    symptomCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", function () {
+        const count = document.querySelectorAll(
+          'input[name="symptom_codes"]:checked',
+        ).length;
+        selectedCount.textContent = `${count} symptom${count !== 1 ? "s" : ""} selected`;
+
+        if (count > 0) {
+          stepItems[1].classList.add("completed");
+          stepItems[2].classList.add("active");
+        } else {
+          stepItems[1].classList.remove("completed");
+          stepItems[2].classList.remove("active");
+        }
+      });
+    });
+
+    // Form validation
+    document
+      .getElementById("diagnosisForm")
+      .addEventListener("submit", function (e) {
+        const checked = document.querySelectorAll(
+          'input[name="symptom_codes"]:checked',
+        ).length;
+
+        if (checked === 0) {
+          e.preventDefault();
+
+          // Custom alert
+          const alertDiv = document.createElement("div");
+          alertDiv.className = "custom-alert";
+          alertDiv.innerHTML = `
+        <i class="bi bi-exclamation-circle"></i>
+        <span>Please select at least one symptom to continue</span>
+      `;
+          document.querySelector(".diagnose-container").prepend(alertDiv);
+
+          setTimeout(() => alertDiv.remove(), 3000);
+        }
+      });
+  });
+</script>
+
+<style>
+  /* ============================
+   DIAGNOSE PAGE MODERN DESIGN
+============================ */
+
+  .diagnose-hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 100px 0 80px 0;
+    margin-top: -70px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .diagnose-hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+
+  .hero-content-diagnose {
+    position: relative;
+    z-index: 2;
+  }
+
+  .diagnose-main-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .diagnose-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+    max-width: 500px;
+  }
+
+  .trust-badges {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .badge-item {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-phone-img {
+    max-width: 100%;
+    max-height: 400px;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+    border-radius: 20px;
+  }
+
+  .animate-fade-in {
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  /* Main Container */
+  .diagnose-container {
+    margin-top: -50px;
+    position: relative;
+    z-index: 10;
+    padding-bottom: 4rem;
+  }
+
+  .diagnosis-card-modern {
+    background: white;
+    border-radius: 30px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Steps Indicator */
+  .steps-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    gap: 0;
+  }
+
+  .step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.4;
+    transition: all 0.3s;
+  }
+
+  .step-item.active {
+    opacity: 1;
+  }
+
+  .step-item.completed {
+    opacity: 1;
+  }
+
+  .step-item.completed .step-circle {
+    background: #10b981;
+    border-color: #10b981;
+  }
+
+  .step-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    border: 3px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #6b7280;
+    transition: all 0.3s;
+  }
+
+  .step-item.active .step-circle {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .step-item span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #6b7280;
+  }
+
+  .step-line {
+    width: 80px;
+    height: 3px;
+    background: #e5e7eb;
+    margin: 0 -10px;
+    margin-bottom: 30px;
+  }
+
+  /* Selection Panels */
+  .selection-panel {
+    background: #f9fafb;
+    border-radius: 20px;
+    padding: 2rem;
+    height: 100%;
+    border: 2px solid #f3f4f6;
+    transition: all 0.3s;
+  }
+
+  .selection-panel:hover {
+    border-color: #667eea;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .header-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+  }
+
+  .header-icon.bg-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+  }
+
+  .panel-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  .panel-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+
+  /* Modern Form Elements */
+  .form-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .modern-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .select-wrapper {
+    position: relative;
+  }
+
+  .modern-select {
+    width: 100%;
+    padding: 1rem 3rem 1rem 1.2rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #1f2937;
+    background: white;
+    transition: all 0.3s;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .modern-select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  }
+
+  .modern-select:disabled {
+    background: #f3f4f6;
+    cursor: not-allowed;
+  }
+
+  .select-arrow {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #6b7280;
+  }
+
+  /* Device Preview */
+  .device-preview {
+    margin-top: 2rem;
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 2px solid #10b981;
+    animation: slideIn 0.5s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .device-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .device-info h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  .status-badge {
+    display: inline-block;
+    background: #d1fae5;
+    color: #065f46;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.3rem;
+  }
+
+  /* Symptoms */
+  .symptoms-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+
+  .symptoms-container::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .symptoms-container::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 10px;
+  }
+
+  .symptoms-container::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 10px;
+  }
+
+  .symptom-checkbox {
+    display: block;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+  }
+
+  .symptom-checkbox input {
+    display: none;
+  }
+
+  .symptom-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.2rem;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    transition: all 0.3s;
+  }
+
+  .symptom-checkbox:hover .symptom-box {
+    border-color: #667eea;
+    transform: translateX(5px);
+  }
+
+  .symptom-checkbox input:checked + .symptom-box {
+    background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    border-color: #667eea;
+  }
+
+  .check-icon {
+    font-size: 1.3rem;
+    color: #e5e7eb;
+    transition: all 0.3s;
+  }
+
+  .symptom-checkbox input:checked + .symptom-box .check-icon {
+    color: #667eea;
+  }
+
+  .symptom-text {
+    font-weight: 500;
+    color: #374151;
+  }
+
+  .selected-count {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    color: #667eea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  /* Diagnose Button */
+  .btn-diagnose-modern {
+    position: relative;
+    padding: 1.2rem 3rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .btn-diagnose-modern:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  }
+
+  .btn-shimmer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  .btn-diagnose-modern:hover .btn-shimmer {
+    left: 100%;
+  }
+
+  .help-text {
+    color: #6b7280;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  /* Feature Boxes */
+  .feature-box {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 20px;
+    border: 2px solid #f3f4f6;
+    transition: all 0.3s;
+  }
+
+  .feature-box:hover {
+    border-color: #667eea;
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.15);
+  }
+
+  .feature-icon-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #667eea;
+  }
+
+  .feature-box h5 {
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-box p {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  /* Custom Alert */
+  .custom-alert {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .diagnose-main-title {
+      font-size: 2.2rem;
+    }
+
+    .diagnose-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .diagnosis-card-modern {
+      padding: 2rem 1.5rem;
+    }
+
+    .steps-indicator {
+      gap: 0.5rem;
+    }
+
+    .step-item span {
+      font-size: 0.7rem;
+    }
+
+    .step-line {
+      width: 40px;
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+  }
+</style>
+{% endblock %}

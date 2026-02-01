@@ -1,0 +1,63 @@
+{% extends "layouts/base.html" %}
+{% block title %}Edit Issue{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h1 class="mb-0">Edit Issue</h1>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('admin.edit_issue', issue_id=issue.id) }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="phone_id" class="form-label">Phone (optional)</label>
+                                    <select class="form-select" id="phone_id" name="phone_id">
+                                        <option value="">-- Select Phone (optional) --</option>
+                                        {% for phone in phones %}
+                                        <option value="{{ phone.id }}" {% if issue.phone_id == phone.id %}selected{% endif %}>{{ phone.brand }} {{ phone.model }} ({{ phone.release_year }})</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="category" class="form-label">Category</label>
+                                    <input type="text" class="form-control" id="category" name="category" value="{{ issue.category }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ issue.name }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="severity" class="form-label">Severity</label>
+                                    <input type="text" class="form-control" id="severity" name="severity" value="{{ issue.severity }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="5" required>{{ issue.description }}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="symptoms" class="form-label">Symptoms</label>
+                                    <select id="symptoms" name="symptom_ids" class="form-select select2" multiple>
+                                        {% for symptom in symptoms %}
+                                        <option value="{{ symptom.id }}" {% if symptom in issue.symptoms %}selected{% endif %}>{{ symptom.code }} — {{ symptom.description }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <small class="form-text text-muted">Select one or more symptoms.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Update Issue</button>
+                            <a href="{{ url_for('admin.manage_issues') }}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

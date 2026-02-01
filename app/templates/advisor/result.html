@@ -1,0 +1,1330 @@
+{% extends "layouts/base.html" %} 
+{% block title %}Diagnosis Result{% endblock %} 
+
+{% block content %}
+<!-- Animated Header Banner -->
+<div class="result-banner">
+  <div class="banner-overlay"></div>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="banner-content">
+          <div class="status-chip success">
+            <i class="bi bi-shield-check-fill"></i>
+            <span>Analysis Complete</span>
+          </div>
+          <h1 class="banner-title">Diagnosis Results</h1>
+          <p class="banner-text">
+            Our AI has successfully analyzed your <strong>{{ phone_brand }} {{ phone_model }}</strong> 
+            and identified the issue with <strong>{{ (result.confidence * 100)|round|int }}%</strong> confidence
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="floating-device">
+          <div class="device-glow"></div>
+          <img src="https://img.pikbest.com/origin/10/07/38/41bpIkbEsT5EP.png!sw800" 
+               alt="Analyzed Device" 
+               class="device-mockup">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container result-page-container">
+  
+  <!-- Main Diagnosis Card -->
+  <div class="mega-result-card">
+    <div class="card-sparkle"></div>
+    
+    <div class="result-hero-section">
+      <div class="row g-0 align-items-center">
+        <div class="col-lg-4">
+          <div class="device-display">
+            <div class="device-frame">
+              <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400&auto=format&fit=crop" 
+                   alt="Phone Model" 
+                   class="device-image">
+              <div class="scan-line"></div>
+            </div>
+            <div class="device-label">
+              <i class="bi bi-phone-fill"></i>
+              <div>
+                <h5>{{ phone_brand }}</h5>
+                <p>{{ phone_model }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-8">
+          <div class="diagnosis-summary">
+            <div class="summary-header">
+              <div class="header-icon {% if result.severity == 'Critical' %}critical{% elif result.severity == 'High' %}high{% elif result.severity == 'Medium' %}medium{% else %}low{% endif %}">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+              </div>
+              <div class="header-text">
+                <span class="issue-category">{{ result.category }}</span>
+                <h2 class="issue-title">{{ result.diagnosis }}</h2>
+              </div>
+            </div>
+
+            <div class="metrics-row">
+              <div class="metric-box">
+                <div class="metric-icon severity-{% if result.severity == 'Critical' %}critical{% elif result.severity == 'High' %}high{% elif result.severity == 'Medium' %}medium{% else %}low{% endif %}">
+                  <i class="bi bi-thermometer-half"></i>
+                </div>
+                <div class="metric-info">
+                  <span class="metric-label">Severity</span>
+                  <strong class="metric-value">{{ result.severity }}</strong>
+                </div>
+              </div>
+
+              <div class="metric-box">
+                <div class="metric-icon confidence">
+                  <i class="bi bi-graph-up-arrow"></i>
+                </div>
+                <div class="metric-info">
+                  <span class="metric-label">Confidence</span>
+                  <strong class="metric-value">{{ (result.confidence * 100)|round|int }}%</strong>
+                </div>
+              </div>
+
+              <div class="metric-box">
+                <div class="metric-icon status">
+                  <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <div class="metric-info">
+                  <span class="metric-label">Status</span>
+                  <strong class="metric-value">Identified</strong>
+                </div>
+              </div>
+            </div>
+
+            {% if result.urgent %}
+            <div class="urgent-warning">
+              <div class="warning-pulse"></div>
+              <i class="bi bi-exclamation-octagon-fill"></i>
+              <div>
+                <strong>URGENT ACTION REQUIRED</strong>
+                <p>This issue requires immediate professional attention to prevent further damage</p>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analysis Journey -->
+  <div class="analysis-journey">
+    <div class="journey-header">
+      <div class="header-decoration">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=120&auto=format&fit=crop" 
+             alt="AI" 
+             class="ai-icon">
+      </div>
+      <h2 class="journey-title">Analysis Journey</h2>
+      <p class="journey-subtitle">Step-by-step breakdown of how we diagnosed your device</p>
+    </div>
+
+    <div class="journey-path">
+      <!-- Step 1 -->
+      <div class="journey-step">
+        <div class="step-connector"></div>
+        <div class="step-marker">
+          <div class="marker-number">01</div>
+          <div class="marker-pulse"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-visual">
+            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600&auto=format&fit=crop" 
+                 alt="Symptoms">
+            <div class="visual-overlay">
+              <i class="bi bi-clipboard2-check-fill"></i>
+            </div>
+          </div>
+          <div class="step-content">
+            <h4 class="step-title">Symptoms Collected</h4>
+            <p class="step-description">Your reported symptoms were carefully documented</p>
+            <div class="symptom-grid">
+              {% for symptom_code, is_present in result.received_symptoms.items() if is_present %}
+              <div class="symptom-pill">
+                <i class="bi bi-check2"></i>
+                <span>{{ symptom_code.replace('_', ' ')|title }}</span>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="journey-step">
+        <div class="step-connector"></div>
+        <div class="step-marker">
+          <div class="marker-number">02</div>
+          <div class="marker-pulse"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-visual">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=600&auto=format&fit=crop" 
+                 alt="AI Analysis">
+            <div class="visual-overlay">
+              <i class="bi bi-cpu-fill"></i>
+            </div>
+          </div>
+          <div class="step-content">
+            <h4 class="step-title">AI Expert System Analysis</h4>
+            <p class="step-description">Advanced diagnostic algorithms processed your data</p>
+            <div class="analysis-steps">
+              {% for step in result.explanation %}
+              <div class="analysis-item">
+                <div class="item-dot"></div>
+                <span>{{ step }}</span>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="journey-step">
+        <div class="step-connector"></div>
+        <div class="step-marker">
+          <div class="marker-number">03</div>
+          <div class="marker-pulse"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-visual">
+            <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=600&auto=format&fit=crop" 
+                 alt="Diagnosis">
+            <div class="visual-overlay">
+              <i class="bi bi-lightbulb-fill"></i>
+            </div>
+          </div>
+          <div class="step-content">
+            <h4 class="step-title">Issue Identified</h4>
+            <p class="step-description">Cross-referenced with expert knowledge base</p>
+            <div class="identified-issue">
+              <div class="issue-badge">
+                <i class="bi bi-exclamation-diamond-fill"></i>
+                <strong>{{ result.diagnosis }}</strong>
+              </div>
+              <p class="issue-explanation">This diagnosis was determined based on symptom patterns and historical data analysis</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repair Solutions -->
+  <div class="solutions-section">
+    <div class="solutions-header">
+      <img src="https://i.pinimg.com/474x/08/8a/23/088a23de17335af26d329fd5d63d430b.jpg" 
+           alt="Tools" 
+           class="tools-icon">
+      <h2>Recommended Repair Solutions</h2>
+      <p>Professional repair options tailored to your device issue</p>
+    </div>
+
+    {% if result.recommendations %}
+    <div class="solutions-grid">
+      {% for rec in result.recommendations[:3] %}
+      <div class="solution-card {% if loop.first %}featured{% endif %}">
+        {% if loop.first %}
+        <div class="featured-ribbon">
+          <i class="bi bi-star-fill"></i>
+          <span>Recommended</span>
+        </div>
+        {% endif %}
+
+        <div class="solution-image-container">
+          <img src="{% if loop.index == 1 %}https://images.pexels.com/photos/7792836/pexels-photo-7792836.jpeg{% endif %}" 
+               alt="Repair Solution" 
+               class="solution-image">
+          <div class="image-gradient"></div>
+        </div>
+
+        <div class="solution-body">
+          <h4 class="solution-title">{{ rec.issue }}</h4>
+          <p class="solution-description">{{ rec.issue_description }}</p>
+
+          <div class="solution-divider"></div>
+
+          <div class="solution-details">
+            <div class="detail-row">
+              <div class="detail-icon">
+                <i class="bi bi-tools"></i>
+              </div>
+              <div class="detail-text">
+                <span class="detail-label">Solution Method</span>
+                <p class="detail-value">{{ rec.solution }}</p>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-icon price">
+                <i class="bi bi-cash-stack"></i>
+              </div>
+              <div class="detail-text">
+                <span class="detail-label">Price Range</span>
+                <p class="detail-value price-tag">${{ rec.cost_min }} - ${{ rec.cost_max }}</p>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-icon difficulty">
+                <i class="bi bi-speedometer2"></i>
+              </div>
+              <div class="detail-text">
+                <span class="detail-label">Difficulty Level</span>
+                <p class="detail-value">
+                  <span class="difficulty-tag">{{ rec.difficulty }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <button class="solution-select-btn {% if loop.first %}primary{% endif %}">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Choose This Solution</span>
+          </button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-solutions">
+      <div class="no-solutions-icon">
+        <i class="bi bi-tools"></i>
+      </div>
+      <h4>No Standard Solutions Available</h4>
+      <p>This issue requires custom evaluation by a certified technician</p>
+      <button class="contact-tech-btn">
+        <i class="bi bi-telephone-fill"></i>
+        Contact a Technician
+      </button>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Navigation Actions -->
+  <div class="navigation-section">
+    <a href="{{ url_for('advisor.diagnose') }}" class="nav-button secondary">
+      <div class="button-icon">
+        <i class="bi bi-arrow-repeat"></i>
+      </div>
+      <div class="button-content">
+        <strong>New Diagnosis</strong>
+        <span>Diagnose another device</span>
+      </div>
+    </a>
+
+    <a href="{{ url_for('advisor.history') }}" class="nav-button primary">
+      <div class="button-icon">
+        <i class="bi bi-clock-history"></i>
+      </div>
+      <div class="button-content">
+        <strong>View History</strong>
+        <span>See all diagnoses</span>
+      </div>
+    </a>
+  </div>
+
+</div>
+{% endblock %} 
+
+{% block extra_css %}
+<style>
+/* ========================================
+   RESULT PAGE - PREMIUM REDESIGN
+======================================== */
+
+/* Banner Section */
+.result-banner {
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #7c3aed 100%);
+  padding: 140px 0 100px 0;
+  margin-top: -70px;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%);
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  padding: 0.75rem 1.75rem;
+  border-radius: 50px;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+.status-chip i {
+  font-size: 1.5rem;
+}
+
+.banner-title {
+  font-size: 4rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+}
+
+.banner-text {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  opacity: 0.95;
+  max-width: 600px;
+}
+
+/* Floating Device */
+.floating-device {
+  position: relative;
+  text-align: center;
+}
+
+.device-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+}
+
+.device-mockup {
+  position: relative;
+  max-width: 350px;
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.4));
+  animation: float-device 4s ease-in-out infinite;
+}
+
+@keyframes float-device {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-25px) rotate(3deg); }
+}
+
+/* Container */
+.result-page-container {
+  margin-top: -60px;
+  position: relative;
+  z-index: 10;
+  padding-bottom: 5rem;
+}
+
+/* Mega Result Card */
+.mega-result-card {
+  background: white;
+  border-radius: 30px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+  margin-bottom: 4rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-sparkle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #0ea5e9, #2563eb, #7c3aed, #0ea5e9);
+  background-size: 200% 100%;
+  animation: sparkle-move 3s linear infinite;
+}
+
+@keyframes sparkle-move {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+.result-hero-section {
+  padding: 3rem;
+}
+
+/* Device Display */
+.device-display {
+  text-align: center;
+}
+
+.device-frame {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.device-image {
+  width: 220px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 25px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #0ea5e9, transparent);
+  animation: scanning 2s ease-in-out infinite;
+}
+
+@keyframes scanning {
+  0% { top: 0%; }
+  50% { top: 100%; }
+  100% { top: 0%; }
+}
+
+.device-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: #f8fafc;
+  padding: 1.25rem;
+  border-radius: 15px;
+}
+
+.device-label i {
+  font-size: 2rem;
+  color: #0ea5e9;
+}
+
+.device-label h5 {
+  margin: 0;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.device-label p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* Diagnosis Summary */
+.diagnosis-summary {
+  padding: 2rem;
+}
+
+.summary-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.header-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.header-icon.critical {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 10px 30px rgba(239,68,68,0.3);
+}
+
+.header-icon.high {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 10px 30px rgba(245,158,11,0.3);
+}
+
+.header-icon.medium {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 10px 30px rgba(59,130,246,0.3);
+}
+
+.header-icon.low {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 10px 30px rgba(16,185,129,0.3);
+}
+
+.issue-category {
+  display: inline-block;
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.issue-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Metrics Row */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metric-box {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s;
+}
+
+.metric-box:hover {
+  border-color: #0ea5e9;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(14,165,233,0.15);
+}
+
+.metric-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.metric-icon.severity-critical { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.metric-icon.severity-high { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.metric-icon.severity-medium { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.metric-icon.severity-low { background: linear-gradient(135deg, #10b981, #059669); }
+.metric-icon.confidence { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+.metric-icon.status { background: linear-gradient(135deg, #10b981, #059669); }
+
+.metric-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.metric-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+/* Urgent Warning */
+.urgent-warning {
+  position: relative;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border: 3px solid #ef4444;
+  border-radius: 15px;
+  padding: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.warning-pulse {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 15px;
+  height: 15px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: pulse-warning 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-warning {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239,68,68,0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(239,68,68,0);
+  }
+}
+
+.urgent-warning i {
+  font-size: 3rem;
+  color: #dc2626;
+  flex-shrink: 0;
+}
+
+.urgent-warning strong {
+  display: block;
+  color: #991b1b;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.urgent-warning p {
+  color: #7f1d1d;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Analysis Journey */
+.analysis-journey {
+  margin: 5rem 0;
+}
+
+.journey-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.header-decoration {
+  margin-bottom: 1.5rem;
+}
+
+.ai-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  border: 5px solid white;
+}
+
+.journey-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
+}
+
+.journey-subtitle {
+  font-size: 1.2rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Journey Path */
+.journey-path {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.journey-step {
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+.journey-step:last-child {
+  margin-bottom: 0;
+}
+
+.journey-step:last-child .step-connector {
+  display: none;
+}
+
+.step-connector {
+  position: absolute;
+  left: 45px;
+  top: 90px;
+  bottom: -70px;
+  width: 3px;
+  background: linear-gradient(to bottom, #0ea5e9, #e2e8f0);
+}
+
+.step-marker {
+  position: absolute;
+  left: 0;
+  top: 30px;
+  z-index: 10;
+}
+
+.marker-number {
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #7c3aed 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  box-shadow: 0 15px 40px rgba(14,165,233,0.4);
+  position: relative;
+  z-index: 2;
+}
+
+.marker-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90px;
+  height: 90px;
+  border: 3px solid #0ea5e9;
+  border-radius: 50%;
+  animation: pulse-marker 2s ease-in-out infinite;
+}
+
+@keyframes pulse-marker {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+.step-card {
+  margin-left: 130px;
+  background: white;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  display: flex;
+  transition: all 0.4s;
+}
+
+.step-card:hover {
+  transform: translateX(10px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+}
+
+.step-visual {
+  width: 280px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.step-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.visual-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(14,165,233,0.85), rgba(124,58,237,0.85));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.step-card:hover .visual-overlay {
+  opacity: 1;
+}
+
+.visual-overlay i {
+  font-size: 4rem;
+  color: white;
+}
+
+.step-content {
+  padding: 2.5rem;
+  flex-grow: 1;
+}
+
+.step-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.step-description {
+  color: #64748b;
+  margin-bottom: 1.5rem;}
+  .symptom-grid {
+display: flex;
+flex-wrap: wrap;
+gap: 0.75rem;
+}
+.symptom-pill {
+background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+color: #1e40af;
+padding: 0.65rem 1.25rem;
+border-radius: 50px;
+font-weight: 600;
+font-size: 0.9rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+border: 2px solid #93c5fd;
+}
+.symptom-pill i {
+font-size: 1.1rem;
+}
+/* Analysis Steps */
+.analysis-steps {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+}
+.analysis-item {
+display: flex;
+align-items: flex-start;
+gap: 1rem;
+padding: 1rem;
+background: #f8fafc;
+border-radius: 12px;
+border-left: 4px solid #0ea5e9;
+}
+.item-dot {
+width: 8px;
+height: 8px;
+background: #0ea5e9;
+border-radius: 50%;
+margin-top: 0.5rem;
+flex-shrink: 0;
+}
+.analysis-item span {
+color: #334155;
+font-weight: 500;
+line-height: 1.6;
+}
+/* Identified Issue */
+.identified-issue {
+margin-top: 1.5rem;
+}
+.issue-badge {
+background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+border: 3px solid #f59e0b;
+border-radius: 15px;
+padding: 1.5rem;
+display: flex;
+align-items: center;
+gap: 1rem;
+margin-bottom: 1rem;
+}
+.issue-badge i {
+font-size: 2.5rem;
+color: #d97706;
+}
+.issue-badge strong {
+font-size: 1.4rem;
+color: #92400e;
+}
+.issue-explanation {
+color: #64748b;
+font-size: 0.95rem;
+margin: 0;
+font-style: italic;
+}
+/* Solutions Section */
+.solutions-section {
+margin: 5rem 0;
+}
+.solutions-header {
+text-align: center;
+margin-bottom: 3rem;
+}
+.tools-icon {
+width: 100px;
+height: 100px;
+border-radius: 50%;
+object-fit: cover;
+margin-bottom: 1.5rem;
+box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+.solutions-header h2 {
+font-size: 2.8rem;
+font-weight: 900;
+color: #0f172a;
+margin-bottom: 0.75rem;
+}
+.solutions-header p {
+font-size: 1.2rem;
+color: #64748b;
+}
+.solutions-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+gap: 2rem;
+}
+.solution-card {
+background: white;
+border-radius: 25px;
+overflow: hidden;
+box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+transition: all 0.4s;
+position: relative;
+border: 3px solid transparent;
+}
+.solution-card:hover {
+transform: translateY(-15px);
+box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+}
+.solution-card.featured {
+border-color: #10b981;
+}
+.featured-ribbon {
+position: absolute;
+top: 20px;
+right: -10px;
+background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+color: white;
+padding: 0.6rem 1.5rem 0.6rem 1.25rem;
+border-radius: 50px 0 0 50px;
+font-weight: 800;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+z-index: 10;
+box-shadow: -5px 5px 20px rgba(16,185,129,0.3);
+}
+.solution-image-container {
+height: 250px;
+position: relative;
+overflow: hidden;
+}
+.solution-image {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.6s;
+}
+.solution-card:hover .solution-image {
+transform: scale(1.15);
+}
+.image-gradient {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+height: 100px;
+background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+.solution-body {
+padding: 2.25rem;
+}
+.solution-title {
+font-size: 1.5rem;
+font-weight: 800;
+color: #0f172a;
+margin-bottom: 0.75rem;
+}
+.solution-description {
+color: #64748b;
+line-height: 1.7;
+margin-bottom: 1.5rem;
+}
+.solution-divider {
+height: 2px;
+background: linear-gradient(to right, #0ea5e9, transparent);
+margin-bottom: 1.5rem;
+}
+.solution-details {
+display: flex;
+flex-direction: column;
+gap: 1.25rem;
+margin-bottom: 2rem;
+}
+.detail-row {
+display: flex;
+align-items: flex-start;
+gap: 1rem;
+}
+.detail-icon {
+width: 45px;
+height: 45px;
+background: linear-gradient(135deg, #0ea5e9 0%, #7c3aed 100%);
+border-radius: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 1.2rem;
+flex-shrink: 0;
+}
+.detail-icon.price {
+background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+.detail-icon.difficulty {
+background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+.detail-label {
+display: block;
+font-size: 0.75rem;
+color: #94a3b8;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+margin-bottom: 0.25rem;
+}
+.detail-value {
+font-weight: 600;
+color: #1e293b;
+margin: 0;
+font-size: 1rem;
+}
+.price-tag {
+color: #10b981;
+font-size: 1.3rem;
+font-weight: 800;
+}
+.difficulty-tag {
+background: #fef3c7;
+color: #92400e;
+padding: 0.4rem 1rem;
+border-radius: 20px;
+font-size: 0.85rem;
+font-weight: 700;
+}
+.solution-select-btn {
+width: 100%;
+padding: 1.1rem;
+background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+border: none;
+border-radius: 12px;
+color: white;
+font-weight: 700;
+font-size: 1.05rem;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.75rem;
+transition: all 0.3s;
+}
+.solution-select-btn.primary {
+background: linear-gradient(135deg, #0ea5e9 0%, #7c3aed 100%);
+}
+.solution-select-btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 10px 30px rgba(14,165,233,0.3);
+}
+/* No Solutions */
+.no-solutions {
+text-align: center;
+padding: 5rem 2rem;
+background: white;
+border-radius: 25px;
+box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+.no-solutions-icon {
+width: 120px;
+height: 120px;
+background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto 2rem;
+font-size: 3.5rem;
+color: #94a3b8;
+}
+.no-solutions h4 {
+font-size: 1.8rem;
+font-weight: 800;
+color: #1e293b;
+margin-bottom: 1rem;
+}
+.no-solutions p {
+color: #64748b;
+font-size: 1.15rem;
+margin-bottom: 2rem;
+}
+.contact-tech-btn {
+padding: 1rem 2.5rem;
+background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+border: none;
+border-radius: 50px;
+color: white;
+font-weight: 700;
+font-size: 1.05rem;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+gap: 0.75rem;
+transition: all 0.3s;
+}
+.contact-tech-btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 15px 40px rgba(14,165,233,0.3);
+}
+/* Navigation Section */
+.navigation-section {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 1.5rem;
+margin-top: 4rem;
+}
+.nav-button {
+display: flex;
+align-items: center;
+gap: 1.5rem;
+padding: 2rem;
+border-radius: 20px;
+text-decoration: none;
+transition: all 0.3s;
+box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.nav-button:hover {
+transform: translateY(-8px);
+box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+.nav-button.secondary {
+background: white;
+border: 3px solid #e2e8f0;
+}
+.nav-button.secondary:hover {
+border-color: #0ea5e9;
+}
+.nav-button.primary {
+background: linear-gradient(135deg, #0ea5e9 0%, #7c3aed 100%);
+color: white;
+}
+.button-icon {
+width: 70px;
+height: 70px;
+border-radius: 15px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 2.2rem;
+flex-shrink: 0;
+}
+.nav-button.secondary .button-icon {
+background: #f1f5f9;
+color: #0ea5e9;
+}
+.nav-button.primary .button-icon {
+background: rgba(255,255,255,0.2);
+color: white;
+}
+.button-content strong {
+display: block;
+font-size: 1.3rem;
+margin-bottom: 0.25rem;
+}
+.nav-button.secondary .button-content strong {
+color: #0f172a;
+}
+.button-content span {
+font-size: 0.95rem;
+opacity: 0.8;
+}
+.nav-button.secondary .button-content span {
+color: #64748b;
+}
+/* Responsive */
+@media (max-width: 992px) {
+.step-card {
+flex-direction: column;
+}
+.step-visual {
+width: 100%;
+height: 220px;
+}
+}
+@media (max-width: 768px) {
+.banner-title {
+font-size: 2.5rem;
+}
+.banner-text {
+font-size: 1.1rem;
+}
+.device-mockup {
+max-width: 250px;
+margin-top: 2rem;
+}
+.result-hero-section {
+padding: 2rem 1.5rem;
+}
+.summary-header {
+flex-direction: column;
+text-align: center;
+}
+.issue-title {
+font-size: 1.6rem;
+}
+.metrics-row {
+grid-template-columns: 1fr;
+}
+.journey-title {
+font-size: 2rem;
+}
+.step-card {
+margin-left: 0;
+margin-top: 2rem;
+}
+.step-marker {
+position: relative;
+left: auto;
+top: auto;
+margin-bottom: 1rem;
+}
+.step-connector {
+display: none;
+}
+.solutions-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+{% endblock %}</parameter>Claude is AI and can make mistakes. Please double-check responses.
+

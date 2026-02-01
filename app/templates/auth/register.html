@@ -1,0 +1,411 @@
+{% extends "layouts/base.html" %} {% block title %}Create Account - Phone Repair
+Advisor{% endblock %} {% block main_class %}{% endblock %}
+
+<!-- 
+  CUSTOM CSS FOR THIS PAGE 
+  We put this here to keep the design specific to registration 
+  without breaking your global style.css
+-->
+{% block extra_css %}
+<style>
+  /* --- PAGE BACKGROUND WRAPPER --- */
+  .auth-page-wrapper {
+    /* Full screen background */
+    min-height: 100vh;
+    background: linear-gradient(rgba(31, 40, 51, 0.85), rgba(31, 40, 51, 0.95)),
+      url("https://images.unsplash.com/photo-1591196759712-c64a8c2a243b?q=80&w=2070&auto=format&fit=crop");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px 40px 20px; /* Top padding clears the fixed navbar */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* --- AUTH CARD (Split Layout) --- */
+  .auth-card {
+    width: 100%;
+    max-width: 900px; /* Compact width */
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+  }
+
+  /* --- LEFT SIDE: IMAGE & BRANDING --- */
+  .auth-visual {
+    flex: 1;
+    background: linear-gradient(135deg, #45a29e 0%, #1f2833 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative blurred circle */
+  .auth-visual::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(102, 252, 241, 0.2);
+    border-radius: 50%;
+    filter: blur(40px);
+  }
+
+  .visual-image {
+    width: 80%;
+    max-width: 280px;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  .visual-content h3 {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .visual-content p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  /* --- RIGHT SIDE: COMPACT FORM --- */
+  .auth-form-wrapper {
+    flex: 1.2;
+    padding: 3.5rem 3rem;
+    background: #fff;
+    position: relative;
+  }
+
+  .form-header {
+    margin-bottom: 2rem;
+  }
+
+  .form-header h2 {
+    font-weight: 700;
+    color: #1f2833;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-header p {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  /* --- FORM INPUTS --- */
+  .form-group {
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  .input-icon-wrapper {
+    position: relative;
+  }
+
+  .input-icon-wrapper i.icon-left {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0aec0;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+    z-index: 5;
+  }
+
+  /* Override default Bootstrap form-control for this page */
+  .auth-form-wrapper .form-control {
+    padding: 0.75rem 1rem 0.75rem 2.8rem; /* Space for icon */
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #1f2833;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+  }
+
+  .auth-form-wrapper .form-control:focus {
+    background-color: #fff;
+    border-color: #66fcf1;
+    box-shadow: 0 0 0 4px rgba(102, 252, 241, 0.15);
+    outline: none;
+  }
+
+  .auth-form-wrapper .form-control:focus + .icon-left,
+  .input-icon-wrapper:focus-within .icon-left {
+    color: #45a29e;
+  }
+
+  /* Password Toggle */
+  .toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #a0aec0;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+    z-index: 5;
+  }
+
+  .toggle-password:hover {
+    color: #1f2833;
+  }
+
+  /* --- BUTTON --- */
+  .btn-submit {
+    background: linear-gradient(135deg, #66fcf1 0%, #45a29e 100%);
+    border: none;
+    color: #1f2833;
+    font-weight: 700;
+    padding: 0.85rem;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 252, 241, 0.4);
+    color: #1f2833;
+  }
+
+  /* --- SWITCH LINK --- */
+  .switch-auth {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .switch-auth a {
+    color: #45a29e;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .switch-auth a:hover {
+    color: #66fcf1;
+  }
+
+  /* --- ANIMATIONS --- */
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .auth-card {
+      flex-direction: column;
+      margin: 0;
+    }
+    .auth-visual {
+      padding: 2rem;
+    }
+    .auth-form-wrapper {
+      padding: 2rem;
+    }
+    .visual-image {
+      width: 120px;
+      margin-bottom: 1rem;
+    }
+  }
+</style>
+{% endblock %} {% block content %}
+<!-- Main wrapper for the background -->
+<div class="auth-page-wrapper">
+  <div class="auth-card">
+    <!-- LEFT SIDE: DECORATIVE IMAGE & INFO -->
+    <div class="auth-visual">
+      <div class="visual-content">
+        <!-- Phone Image -->
+        <img
+          src="https://img.icons8.com/clouds/200/iphone-x.png"
+          alt="Phone Repair"
+          class="visual-image"
+        />
+        <h3>Expert Diagnosis</h3>
+        <p>
+          Create an account to access AI-powered diagnostics and track your
+          repair history.
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE: REGISTRATION FORM -->
+    <div class="auth-form-wrapper">
+      <div class="form-header">
+        <h2>Create Account</h2>
+        <p>Join us and get your phone fixed in no time.</p>
+      </div>
+
+      <form method="POST" action="{{ url_for('auth.register') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <!-- USERNAME -->
+        <div class="form-group">
+          {{ form.username.label(class="form-label") }}
+          <div class="input-icon-wrapper">
+            <i class="bi bi-person icon-left"></i>
+            {{ form.username(class="form-control", placeholder="Choose a
+            username") }}
+          </div>
+          {% if form.username.errors %}
+          <div class="text-danger small mt-1" style="font-size: 0.8rem">
+            <i class="bi bi-exclamation-circle"></i> {{ form.username.errors[0]
+            }}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- FULL NAME -->
+        <div class="form-group">
+          {{ form.full_name.label(class="form-label") }}
+          <div class="input-icon-wrapper">
+            <i class="bi bi-person-badge icon-left"></i>
+            {{ form.full_name(class="form-control", placeholder="Enter your full
+            name") }}
+          </div>
+          {% if form.full_name.errors %}
+          <div class="text-danger small mt-1" style="font-size: 0.8rem">
+            <i class="bi bi-exclamation-circle"></i> {{ form.full_name.errors[0]
+            }}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-group">
+          {{ form.email.label(class="form-label") }}
+          <div class="input-icon-wrapper">
+            <i class="bi bi-envelope icon-left"></i>
+            {{ form.email(class="form-control", placeholder="Enter your email")
+            }}
+          </div>
+          {% if form.email.errors %}
+          <div class="text-danger small mt-1" style="font-size: 0.8rem">
+            <i class="bi bi-exclamation-circle"></i> {{ form.email.errors[0] }}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group">
+          {{ form.password.label(class="form-label") }}
+          <div class="input-icon-wrapper">
+            <i class="bi bi-lock icon-left"></i>
+            {{ form.password(class="form-control", placeholder="Create a
+            password", id="password") }}
+            <i
+              class="bi bi-eye toggle-password"
+              onclick="togglePassword('password', this)"
+            ></i>
+          </div>
+          {% if form.password.errors %}
+          <div class="text-danger small mt-1" style="font-size: 0.8rem">
+            <i class="bi bi-exclamation-circle"></i> {{ form.password.errors[0]
+            }}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- CONFIRM PASSWORD -->
+        <div class="form-group">
+          {{ form.confirm_password.label(class="form-label") }}
+          <div class="input-icon-wrapper">
+            <i class="bi bi-shield-lock icon-left"></i>
+            {{ form.confirm_password(class="form-control", placeholder="Confirm
+            your password", id="confirm_password") }}
+            <i
+              class="bi bi-eye toggle-password"
+              onclick="togglePassword('confirm_password', this)"
+            ></i>
+          </div>
+          {% if form.confirm_password.errors %}
+          <div class="text-danger small mt-1" style="font-size: 0.8rem">
+            <i class="bi bi-exclamation-circle"></i> {{
+            form.confirm_password.errors[0] }}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- SUBMIT -->
+        {{ form.submit(class="btn btn-submit") }}
+
+        <!-- SWITCH LOGIN -->
+        <div class="switch-auth">
+          Already have an account?
+          <a href="{{ url_for('auth.login') }}">Log in</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  function togglePassword(inputId, element) {
+    const input = document.getElementById(inputId);
+    const icon = element;
+
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove("bi-eye");
+      icon.classList.add("bi-eye-slash");
+    } else {
+      input.type = "password";
+      icon.classList.remove("bi-eye-slash");
+      icon.classList.add("bi-eye");
+    }
+  }
+</script>
+{% endblock %}

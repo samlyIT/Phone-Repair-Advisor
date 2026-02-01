@@ -1,0 +1,55 @@
+{% extends "layouts/base.html" %}
+{% block title %}Manage Symptoms{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Manage Symptoms</h1>
+    <a href="{{ url_for('admin.add_symptom') }}" class="btn btn-primary">Add New Symptom</a>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-{{ category }}">{{ message }}</div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  {% if symptoms %}
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Code</th>
+          <th>Description</th>
+          <th>Question</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for symptom in symptoms %}
+        <tr>
+          <td>{{ symptom.id }}</td>
+          <td>{{ symptom.code }}</td>
+          <td>{{ symptom.description }}</td>
+          <td>{{ symptom.question }}</td>
+          <td>
+            <a href="{{ url_for('admin.edit_symptom', symptom_id=symptom.id) }}" class="btn btn-sm btn-info">Edit</a>
+            <form action="{{ url_for('admin.delete_symptom', symptom_id=symptom.id) }}" method="POST" style="display: inline">
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this symptom?');">
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p>No symptoms found.</p>
+  {% endif %}
+</div>
+{% endblock %}

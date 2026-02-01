@@ -1,0 +1,189 @@
+{% extends "layouts/base.html" %} {% block title %}Admin Dashboard{% endblock %}
+{% block main_class %}dashboard-clean{% endblock %} {% block content %}
+<div class="container-fluid px-lg-5">
+  <!-- Header -->
+  <div class="mb-5 mt-3">
+    <h2 class="fw-bold" style="color: #0f172a">
+      <i class="bi bi-speedometer2 me-2 text-primary"></i> Admin Dashboard
+    </h2>
+    <p style="color: #64748b">System overview and management controls</p>
+  </div>
+
+  <!-- Statistics Row -->
+  <div class="row g-4 mb-4">
+    <!-- Users -->
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card-wrapper accent-blue">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="stat-title">Total Users</div>
+            <div class="stat-number">{{ stats.total_users }}</div>
+          </div>
+          <div class="stat-icon-box bg-blue-light">
+            <i class="bi bi-people-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phones -->
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card-wrapper accent-purple">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="stat-title">Phones</div>
+            <div class="stat-number">{{ stats.total_phones }}</div>
+          </div>
+          <div class="stat-icon-box bg-purple-light">
+            <i class="bi bi-phone-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Issues -->
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card-wrapper accent-orange">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="stat-title">Issues</div>
+            <div class="stat-number">{{ stats.total_issues }}</div>
+          </div>
+          <div class="stat-icon-box bg-orange-light">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repairs -->
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card-wrapper accent-green">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="stat-title">Repairs</div>
+            <div class="stat-number">{{ stats.total_repairs }}</div>
+          </div>
+          <div class="stat-icon-box bg-green-light">
+            <i class="bi bi-tools"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Row -->
+  <div class="row g-4">
+    <!-- Left: Management List -->
+    <div class="col-lg-7">
+      <div class="admin-card h-100">
+        <div class="card-header-custom">
+          <i class="bi bi-gear me-2 text-primary"></i> Management
+        </div>
+        <div class="p-0">
+          <a href="{{ url_for('admin.manage_users') }}" class="manage-item">
+            <span class="manage-icon"><i class="bi bi-people"></i></span>
+            <div>
+              <div class="fw-bold">Manage Users</div>
+              <small class="text-muted">View profiles and permissions</small>
+            </div>
+            <i class="bi bi-chevron-right ms-auto text-muted"></i>
+          </a>
+
+          <a href="{{ url_for('admin.manage_phones') }}" class="manage-item">
+            <span class="manage-icon"><i class="bi bi-phone"></i></span>
+            <div>
+              <div class="fw-bold">Manage Phones</div>
+              <small class="text-muted">Update device database</small>
+            </div>
+            <i class="bi bi-chevron-right ms-auto text-muted"></i>
+          </a>
+
+          <a href="{{ url_for('admin.manage_issues') }}" class="manage-item">
+            <span class="manage-icon"><i class="bi bi-bug"></i></span>
+            <div>
+              <div class="fw-bold">Manage Issues</div>
+              <small class="text-muted">Troubleshooting database</small>
+            </div>
+            <i class="bi bi-chevron-right ms-auto text-muted"></i>
+          </a>
+
+          <a href="{{ url_for('admin.manage_repairs') }}" class="manage-item">
+            <span class="manage-icon"><i class="bi bi-wrench"></i></span>
+            <div>
+              <div class="fw-bold">Manage Repairs</div>
+              <small class="text-muted">Repair history and solutions</small>
+            </div>
+            <i class="bi bi-chevron-right ms-auto text-muted"></i>
+          </a>
+
+          <a href="{{ url_for('admin.manage_rules') }}" class="manage-item">
+            <span class="manage-icon"><i class="bi bi-diagram-3"></i></span>
+            <div>
+              <div class="fw-bold">Expert System Rules</div>
+              <small class="text-muted">Logic configuration</small>
+            </div>
+            <i class="bi bi-chevron-right ms-auto text-muted"></i>
+          </a>
+
+          <a href="{{ url_for('admin.manage_symptoms') }}" class="manage-item">
+            <span class="manage-icon"><i class="bi bi-activity"></i></span>
+            <div>
+              <div class="fw-bold">Manage Symptoms</div>
+              <small class="text-muted">Keyword management</small>
+            </div>
+            <i class="bi bi-chevron-right ms-auto text-muted"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Quick Actions + Featured Image -->
+    <div class="col-lg-5">
+      <div class="admin-card h-100 p-4">
+        <div class="mb-4">
+          <h6
+            class="fw-bold text-secondary text-uppercase"
+            style="font-size: 0.8rem; letter-spacing: 1px"
+          >
+            Quick Actions
+          </h6>
+
+          <a href="{{ url_for('admin.add_phone') }}" class="q-btn grad-blue">
+            <span><i class="bi bi-phone me-2"></i> Add Phone Model</span>
+            <i class="bi bi-arrow-right"></i>
+          </a>
+
+          <a href="{{ url_for('admin.add_issue') }}" class="q-btn grad-purple">
+            <span><i class="bi bi-bug me-2"></i> Add Issue</span>
+            <i class="bi bi-arrow-right"></i>
+          </a>
+
+          <a href="{{ url_for('admin.add_repair') }}" class="q-btn grad-pink">
+            <span><i class="bi bi-wrench me-2"></i> Add Repair</span>
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- FEATURED IMAGE CARD (No background image, just a card with image) -->
+        <div class="visual-card">
+          <img
+            src="https://c8.alamy.com/comp/PEJPYT/disassembled-samsung-galaxy-mobile-phone-showing-various-internal-components-usa-PEJPYT.jpg"
+            alt=""
+          />
+          <!-- <img
+            src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?q=80&w=1000&auto=format&fit=crop"
+            alt="Server System"
+          /> -->
+          <div class="visual-overlay">
+            <h6 class="mb-1">
+              <i class="bi bi-server me-1"></i> System Status
+            </h6>
+            <small style="opacity: 0.9">All systems operational</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

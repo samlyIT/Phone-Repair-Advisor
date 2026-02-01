@@ -1,0 +1,108 @@
+{% extends "layouts/base.html" %} {% block title %}Login - Phone Repair
+Advisor{% endblock %} {% block main_class %}{% endblock %} {% block extra_css %}
+{% endblock %} {% block content %}
+<div class="auth-page-wrapper">
+  <div class="auth-card">
+    <!-- LEFT SIDE: LOGIN FORM -->
+    <div class="auth-form-wrapper">
+      <div class="form-header">
+        <h2>Welcome Back</h2>
+        <p>Login to your Phone Repair Advisor account</p>
+      </div>
+
+      <form method="POST" action="{{ url_for('auth.login') }}">
+        {{ form.hidden_tag() }}
+
+        <!-- USERNAME -->
+        <div class="form-group">
+          {{ form.username.label(class="form-label") }}
+          <div class="input-icon-wrapper">
+            <i class="bi bi-person icon-left"></i>
+            {{ form.username(class="form-control", placeholder="Enter your
+            username") }}
+          </div>
+          {% if form.username.errors %}
+          <div class="text-danger small mt-1" style="font-size: 0.8rem">
+            <i class="bi bi-exclamation-circle"></i> {{ form.username.errors[0]
+            }}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group">
+          {{ form.password.label(class="form-label") }}
+          <div class="input-icon-wrapper">
+            <i class="bi bi-lock icon-left"></i>
+            {{ form.password(class="form-control", placeholder="Enter your
+            password", id="password") }}
+            <i
+              class="bi bi-eye toggle-password"
+              onclick="togglePassword('password', this)"
+            ></i>
+          </div>
+          {% if form.password.errors %}
+          <div class="text-danger small mt-1" style="font-size: 0.8rem">
+            <i class="bi bi-exclamation-circle"></i> {{ form.password.errors[0]
+            }}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- REMEMBER ME & FORGOT PASSWORD -->
+        <div class="form-options">
+          <div class="form-check">
+            {{ form.remember_me(class="form-check-input") }} {{
+            form.remember_me.label(class="form-check-label") }}
+          </div>
+          <!-- Note: Add a route for forgot_password or use # -->
+          <a href="#" class="forgot-link">Forgot Password?</a>
+        </div>
+
+        <!-- SUBMIT -->
+        {{ form.submit(class="btn btn-submit") }}
+
+        <!-- SWITCH TO REGISTER -->
+        <div class="switch-auth">
+          Don't have an account?
+          <a href="{{ url_for('auth.register') }}">Create one</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- RIGHT SIDE: DECORATIVE IMAGE & INFO -->
+    <div class="auth-visual">
+      <div class="visual-content">
+        <!-- Phone Image (Different style/angle than register) -->
+        <img
+          src="https://img.icons8.com/3d-fluency/500/smartphone.png"
+          alt="Phone Repair"
+          class="visual-image"
+        />
+        <h3>Expert Diagnosis<br />Awaits</h3>
+        <p>
+          Log in to access AI-powered diagnostics, track your repair history,
+          and get instant recommendations.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  function togglePassword(inputId, element) {
+    const input = document.getElementById(inputId);
+    const icon = element;
+
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove("bi-eye");
+      icon.classList.add("bi-eye-slash");
+    } else {
+      input.type = "password";
+      icon.classList.remove("bi-eye-slash");
+      icon.classList.add("bi-eye");
+    }
+  }
+</script>
+{% endblock %}

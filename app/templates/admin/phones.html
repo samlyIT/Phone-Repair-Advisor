@@ -1,0 +1,70 @@
+{% extends "layouts/base.html" %} {% block title %}Manage Phones{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Manage Phones</h1>
+    <a href="{{ url_for('admin.add_phone') }}" class="btn btn-primary"
+      >Add New Phone</a
+    >
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %} {% for category, message in messages %}
+  <div class="alert alert-{{ category }}">{{ message }}</div>
+  {% endfor %} {% endif %} {% endwith %} {% if phones %}
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Brand</th>
+          <th>Model</th>
+          <th>Release Year</th>
+          <th>Screen Size</th>
+          <th>Battery Capacity</th>
+          <th>Waterproof Rating</th>
+          <th>Wireless Charging</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for phone in phones %}
+        <tr>
+          <td>{{ phone.brand }}</td>
+          <td>{{ phone.model }}</td>
+          <td>{{ phone.release_year }}</td>
+          <td>{{ phone.screen_size }}</td>
+          <td>{{ phone.battery_capacity }}</td>
+          <td>
+            {{ phone.waterproof_rating if phone.waterproof_rating else 'N/A' }}
+          </td>
+          <td>{{ 'Yes' if phone.has_wireless_charging else 'No' }}</td>
+          <td>
+            <a
+              href="{{ url_for('admin.edit_phone', phone_id=phone.id) }}"
+              class="btn btn-sm btn-info"
+              >Edit</a
+            >
+            <form
+              action="{{ url_for('admin.delete_phone', phone_id=phone.id) }}"
+              method="POST"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are you sure you want to delete this phone?');"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p>No phones found. Add a new phone to get started.</p>
+  {% endif %}
+</div>
+{% endblock %}

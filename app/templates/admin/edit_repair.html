@@ -1,0 +1,82 @@
+{% extends "layouts/base.html" %}
+{% block title %}Edit Repair{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h1 class="mb-0">Edit Repair Solution</h1>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('admin.edit_repair', repair_id=repair.id) }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="issue_id" class="form-label">Associated Issue</label>
+                                    <select class="form-select" id="issue_id" name="issue_id" required>
+                                        <option value="">Select an Issue</option>
+                                        {% for issue in issues %}
+                                        <option value="{{ issue.id }}" {% if issue.id == repair.issue_id %}selected{% endif %}>
+                                            {{ issue.category }} - {{ issue.name }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="solution" class="form-label">Solution</label>
+                                    <textarea class="form-control" id="solution" name="solution" rows="3" required>{{ repair.solution }}</textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="estimated_cost_min" class="form-label">Min Cost ($)</label>
+                                            <input type="number" step="0.01" class="form-control" id="estimated_cost_min" name="estimated_cost_min" value="{{ repair.estimated_cost_min }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="estimated_cost_max" class="form-label">Max Cost ($)</label>
+                                            <input type="number" step="0.01" class="form-control" id="estimated_cost_max" name="estimated_cost_max" value="{{ repair.estimated_cost_max }}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="estimated_time_hours" class="form-label">Time (hours)</label>
+                                    <input type="number" step="0.1" class="form-control" id="estimated_time_hours" name="estimated_time_hours" value="{{ repair.estimated_time_hours }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="difficulty" class="form-label">Difficulty</label>
+                                    <input type="text" class="form-control" id="difficulty" name="difficulty" value="{{ repair.difficulty }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="parts_needed" class="form-label">Parts Needed</label>
+                                    <input type="text" class="form-control" id="parts_needed" name="parts_needed" value="{{ repair.parts_needed }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tools_needed" class="form-label">Tools Needed</label>
+                                    <input type="text" class="form-control" id="tools_needed" name="tools_needed" value="{{ repair.tools_needed }}">
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="warranty_affected" name="warranty_affected" {% if repair.warranty_affected %}checked{% endif %}>
+                                    <label class="form-check-label" for="warranty_affected">Warranty Affected</label>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="priority" class="form-label">Priority (1-5)</label>
+                                    <input type="number" class="form-control" id="priority" name="priority" min="1" max="5" value="{{ repair.priority }}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Update Repair</button>
+                            <a href="{{ url_for('admin.manage_repairs') }}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'layouts/base.html' %} {% block title %}Repair Request Details{%
+endblock %} {% block content %}
+<div class="container mt-4">
+  <h2>Repair Request Details</h2>
+  <div class="card">
+    <div class="card-header">Request ID: {{ request.id }}</div>
+    <div class="card-body">
+      <h5 class="card-title">
+        Phone: {{ request.phone_brand }} {{ request.phone_model }}
+      </h5>
+      <p class="card-text">Status: {{ request.status }}</p>
+      <p class="card-text">
+        Requested On: {{ request.created_at.strftime('%Y-%m-%d %H:%M') }}
+      </p>
+      {% if request.diagnosis_json %}
+      <h4>Diagnosis:</h4>
+      {% set diagnosis = request.diagnosis_json | from_json %}
+      <ul class="list-group mb-3">
+        <li class="list-group-item">
+          <strong>Issue:</strong> {{ diagnosis.diagnosis }}
+        </li>
+        <li class="list-group-item">
+          <strong>Confidence:</strong> {{ diagnosis.confidence }}
+        </li>
+        {% if diagnosis.solution %}
+        <li class="list-group-item">
+          <strong>Solution:</strong> {{ diagnosis.solution }}
+        </li>
+        {% endif %} {% if diagnosis.cost_estimate %}
+        <li class="list-group-item">
+          <strong>Cost Estimate:</strong> {{ diagnosis.cost_estimate }}
+        </li>
+        {% endif %} {% if diagnosis.prevention_tips %}
+        <li class="list-group-item">
+          <strong>Prevention Tips:</strong> {{ diagnosis.prevention_tips }}
+        </li>
+        {% endif %}
+      </ul>
+      {% else %}
+      <p>No diagnosis available yet.</p>
+      {% endif %}
+
+      <h4>Symptoms:</h4>
+      {% if symptoms %}
+      <ul class="list-group">
+        {% for symptom, value in symptoms.items() %}
+        <li class="list-group-item">
+          {{ symptom }}: {{ 'Yes' if value else 'No' }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No symptoms recorded.</p>
+      {% endif %}
+    </div>
+    <div class="card-footer text-muted">
+      <a href="{{ url_for('advisor.history') }}" class="btn btn-secondary"
+        >Back to History</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}

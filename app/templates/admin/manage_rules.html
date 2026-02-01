@@ -1,0 +1,68 @@
+{% extends "layouts/base.html" %}
+{% block title %}Manage Expert System Rules{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Manage Expert System Rules</h1>
+        <a href="{{ url_for('admin.add_rule') }}" class="btn btn-primary">Add New Rule</a>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-header">
+            <h5 class="mb-0">All Rules</h5>
+        </div>
+        <div class="card-body">
+            <p class="lead">Current active rules in the expert system engine:</p>
+            {% if rules %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Priority</th>
+                            <th>Confidence</th>
+                            <th>Recommended Repair</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rule in rules %}
+                        <tr>
+                            <td>{{ rule.name }}</td>
+                            <td><span class="badge bg-primary">{{ rule.priority }}</span></td>
+                            <td><span class="badge bg-success">{{ (rule.confidence * 100)|int }}%</span></td>
+                            <td>
+                                {% if rule.repair %}
+                                    <a href="{{ url_for('admin.edit_repair', repair_id=rule.repair.id) }}">Repair #{{ rule.repair.id }} — {{ rule.repair.issue.name }}</a>
+                                {% else %}
+                                    <span class="text-muted">None</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('admin.edit_rule', rule_id=rule.id) }}" class="btn btn-sm btn-info">Edit</a>
+                                <form action="{{ url_for('admin.delete_rule', rule_id=rule.id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this rule?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i>
+                No rules found. Add a new rule to get started.
+            </div>
+            {% endif %}
+            <div class="alert alert-info mt-4">
+                <i class="bi bi-info-circle"></i>
+                <strong>Note:</strong> Rules are executed in priority order (highest first). The inference engine uses forward chaining to derive conclusions from symptoms.
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

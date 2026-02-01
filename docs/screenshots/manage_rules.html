@@ -1,0 +1,2971 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Expert System Rules</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/static/css/style.css"
+    />
+    <!-- Select2 CSS for enhanced multi-selects -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <i class="bi bi-phone"></i> Phone Repair Advisor
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/advisor/diagnose">
+                <i class="bi bi-search"></i> Diagnose
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/advisor/history">
+                <i class="bi bi-clock-history"></i> History
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard">
+                <i class="bi bi-speedometer2"></i> Admin
+              </a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="userDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-person-circle"></i> admin
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="/auth/profile"
+                    >Profile</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="/auth/logout"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        
+    </div>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+<div class="row">
+  <div class="col-12">
+    <div class="card shadow">
+      <div
+        class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
+      >
+        <h3 class="mb-0">
+          <i class="bi bi-diagram-3"></i> Expert System Rules
+        </h3>
+        <a href="/admin/rules/add" class="btn btn-light">
+          <i class="bi bi-plus-circle"></i> Add New Rule
+        </a>
+      </div>
+      <div class="card-body">
+        <p class="lead">Current active rules in the expert system engine:</p>
+
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Expanded regional toolset Failure - yourself strategy - a2117a78-f9c9-4d5d-add3-14894a34b78c</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 10</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 97%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Evening well century system animal war likely whole television however card exactly large sound.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/22"
+                >Repair #22 — Expanded regional toolset Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Screen",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Medium",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM016"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Screen",
+      "confidence": 0.9,
+      "diagnosis_code": "Expanded regional toolset Failure",
+      "explanation": "Diagnosed based on conditions related to Expanded regional toolset Failure and recommending repair ID 22",
+      "severity": "Medium"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 22
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/13"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/13"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Devolved non-volatile circuit Failure - sister strategy - e41ffafb-88ab-43c2-b20a-baabc6448784</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 8</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 60%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Republican ground product would tell past again end truth to sea carry.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/16"
+                >Repair #16 — Devolved non-volatile circuit Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Charging",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "High",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM020"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Charging",
+      "confidence": 0.76,
+      "diagnosis_code": "Devolved non-volatile circuit Failure",
+      "explanation": "Diagnosed based on conditions related to Devolved non-volatile circuit Failure and recommending repair ID 16",
+      "severity": "High"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 16
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/14"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/14"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Expanded regional toolset Failure - address strategy - 08c82d5d-d316-43f7-95a2-38f501108d4a</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 8</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 77%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Marriage official physical these kind huge important institution my night partner item.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/5"
+                >Repair #5 — Expanded regional toolset Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Screen",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Medium",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM016"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Screen",
+      "confidence": 0.91,
+      "diagnosis_code": "Expanded regional toolset Failure",
+      "explanation": "Diagnosed based on conditions related to Expanded regional toolset Failure and recommending repair ID 5",
+      "severity": "Medium"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 5
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/17"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/17"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Expanded regional toolset Failure - weight strategy - fbe76eb4-8e4c-4321-ad21-7f4b058f2ce2</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 8</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 87%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Life wind her letter Mrs record few.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/5"
+                >Repair #5 — Expanded regional toolset Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Screen",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Medium",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM009"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Screen",
+      "confidence": 0.85,
+      "diagnosis_code": "Expanded regional toolset Failure",
+      "explanation": "Diagnosed based on conditions related to Expanded regional toolset Failure and recommending repair ID 5",
+      "severity": "Medium"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 5
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/23"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/23"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Expanded regional toolset Failure - color strategy - 8ab45180-be9d-4c61-aef4-8f1d8a5807e1</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 7</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 85%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Indicate your man edge left watch past appear common half course.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/14"
+                >Repair #14 — Expanded regional toolset Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Screen",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Medium",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM009"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Screen",
+      "confidence": 0.88,
+      "diagnosis_code": "Expanded regional toolset Failure",
+      "explanation": "Diagnosed based on conditions related to Expanded regional toolset Failure and recommending repair ID 14",
+      "severity": "Medium"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 14
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/3"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/3"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Integrated actuating hub Failure - phone strategy - e81b9f89-b3f0-4950-95cf-4e75241adc28</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 7</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 74%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Including school subject rich family field general along end establish standard product.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/6"
+                >Repair #6 — Integrated actuating hub Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Screen",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Critical",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM023"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Screen",
+      "confidence": 0.73,
+      "diagnosis_code": "Integrated actuating hub Failure",
+      "explanation": "Diagnosed based on conditions related to Integrated actuating hub Failure and recommending repair ID 6",
+      "severity": "Critical"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 6
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/19"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/19"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Intuitive foreground complexity Failure - their strategy - f685dea5-55b9-4fa6-b162-5fc09b0d93ab</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 7</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 78%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Rock during serve until difference better.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/13"
+                >Repair #13 — Intuitive foreground complexity Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Camera",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Medium",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM007"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Camera",
+      "confidence": 0.92,
+      "diagnosis_code": "Intuitive foreground complexity Failure",
+      "explanation": "Diagnosed based on conditions related to Intuitive foreground complexity Failure and recommending repair ID 13",
+      "severity": "Medium"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 13
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/25"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/25"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Object-based discrete project Failure - four strategy - 8b4f06fc-bd65-479d-8904-e3fbeab7efa7</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 6</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 80%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Move image phone consumer party start people us process behind.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/15"
+                >Repair #15 — Object-based discrete project Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Camera",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "High",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM023"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Camera",
+      "confidence": 0.95,
+      "diagnosis_code": "Object-based discrete project Failure",
+      "explanation": "Diagnosed based on conditions related to Object-based discrete project Failure and recommending repair ID 15",
+      "severity": "High"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 15
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/2"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/2"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Expanded regional toolset Failure - market strategy - e780e057-75e4-4671-9f6c-662d26c3eed4</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 6</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 99%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> On war hair machine consumer develop.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/14"
+                >Repair #14 — Expanded regional toolset Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Screen",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Medium",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM016"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Screen",
+      "confidence": 0.82,
+      "diagnosis_code": "Expanded regional toolset Failure",
+      "explanation": "Diagnosed based on conditions related to Expanded regional toolset Failure and recommending repair ID 14",
+      "severity": "Medium"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 14
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/4"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/4"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Multi-layered bi-directional time-frame Failure - travel strategy - 8c5f490d-4792-4424-b5e4-af04855758c0</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 6</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 69%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Stand look than see drop cause unit grow step usually wife investment store.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/3"
+                >Repair #3 — Multi-layered bi-directional time-frame Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Software",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "High",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM007"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Software",
+      "confidence": 0.85,
+      "diagnosis_code": "Multi-layered bi-directional time-frame Failure",
+      "explanation": "Diagnosed based on conditions related to Multi-layered bi-directional time-frame Failure and recommending repair ID 3",
+      "severity": "High"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 3
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/9"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/9"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Object-based discrete project Failure - kitchen strategy - 72172f5c-a63d-4e52-a85e-e3c75236543a</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 6</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 88%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Help personal who health pull budget several.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/15"
+                >Repair #15 — Object-based discrete project Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Camera",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "High",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM023"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Camera",
+      "confidence": 0.97,
+      "diagnosis_code": "Object-based discrete project Failure",
+      "explanation": "Diagnosed based on conditions related to Object-based discrete project Failure and recommending repair ID 15",
+      "severity": "High"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 15
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/10"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/10"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Object-based discrete project Failure - seat strategy - 1d474f8b-9be3-46d7-bcc1-6c8740fea3ee</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 6</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 87%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Begin design those official most interview president without respond player on.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/15"
+                >Repair #15 — Object-based discrete project Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Camera",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "High",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM023"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Camera",
+      "confidence": 0.88,
+      "diagnosis_code": "Object-based discrete project Failure",
+      "explanation": "Diagnosed based on conditions related to Object-based discrete project Failure and recommending repair ID 15",
+      "severity": "High"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 15
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/15"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/15"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Managed multi-tasking open architecture Failure - break strategy - f14aef8e-9794-43e4-b01e-2ed1d981d3c2</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 5</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 56%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Stock role effect prepare language something street walk friend citizen full condition group.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/10"
+                >Repair #10 — Managed multi-tasking open architecture Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Charging",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "High",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM009"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Charging",
+      "confidence": 0.71,
+      "diagnosis_code": "Managed multi-tasking open architecture Failure",
+      "explanation": "Diagnosed based on conditions related to Managed multi-tasking open architecture Failure and recommending repair ID 10",
+      "severity": "High"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 10
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/21"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/21"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Reduced systemic website Failure - instead strategy - f34d2ca5-4af3-47d9-8370-773b875e33f4</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 4</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 67%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Up able play hundred return catch change leave shake clearly attorney.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/9"
+                >Repair #9 — Reduced systemic website Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Battery",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Medium",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM022"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Battery",
+      "confidence": 1.0,
+      "diagnosis_code": "Reduced systemic website Failure",
+      "explanation": "Diagnosed based on conditions related to Reduced systemic website Failure and recommending repair ID 9",
+      "severity": "Medium"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 9
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/1"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/1"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Implemented methodical knowledgebase Failure - respond strategy - 69bca02d-9d3a-4f86-ae89-755d4d03f387</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 4</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 99%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Stock develop visit important arm material person always.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/25"
+                >Repair #25 — Implemented methodical knowledgebase Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Charging",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Low",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM001"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Charging",
+      "confidence": 0.78,
+      "diagnosis_code": "Implemented methodical knowledgebase Failure",
+      "explanation": "Diagnosed based on conditions related to Implemented methodical knowledgebase Failure and recommending repair ID 25",
+      "severity": "Low"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 25
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/12"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/12"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Multi-layered bi-directional time-frame Failure - the strategy - ac93b7db-a818-49d7-aa38-3f1ecb84094b</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 4</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 84%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Add condition artist opportunity choice summer these policy recently even future choice capital.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/3"
+                >Repair #3 — Multi-layered bi-directional time-frame Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Software",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "High",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM024"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Software",
+      "confidence": 0.76,
+      "diagnosis_code": "Multi-layered bi-directional time-frame Failure",
+      "explanation": "Diagnosed based on conditions related to Multi-layered bi-directional time-frame Failure and recommending repair ID 3",
+      "severity": "High"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 3
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/16"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/16"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Managed multi-tasking open architecture Failure - nation strategy - 7301d92d-7e1a-4c34-904c-07b4046ed4c5</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 4</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 54%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Beat energy morning including hotel community particularly too little represent because.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/10"
+                >Repair #10 — Managed multi-tasking open architecture Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Charging",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "High",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM010"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Charging",
+      "confidence": 0.85,
+      "diagnosis_code": "Managed multi-tasking open architecture Failure",
+      "explanation": "Diagnosed based on conditions related to Managed multi-tasking open architecture Failure and recommending repair ID 10",
+      "severity": "High"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 10
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/22"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/22"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Exclusive transitional protocol Failure - dinner strategy - 0b508406-e761-4e1c-af58-b1d909900ad7</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 3</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 67%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Two section weight picture campaign trouble.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/23"
+                >Repair #23 — Exclusive transitional protocol Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Software",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Low",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM007"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Software",
+      "confidence": 0.98,
+      "diagnosis_code": "Exclusive transitional protocol Failure",
+      "explanation": "Diagnosed based on conditions related to Exclusive transitional protocol Failure and recommending repair ID 23",
+      "severity": "Low"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 23
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/5"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/5"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Implemented methodical knowledgebase Failure - main strategy - 255f97dd-c7da-4e32-ae62-dd4edf1bc84c</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 3</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 66%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Modern interview in example mouth continue stay environmental machine population method religious.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/4"
+                >Repair #4 — Implemented methodical knowledgebase Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Charging",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Low",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM018"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Charging",
+      "confidence": 0.89,
+      "diagnosis_code": "Implemented methodical knowledgebase Failure",
+      "explanation": "Diagnosed based on conditions related to Implemented methodical knowledgebase Failure and recommending repair ID 4",
+      "severity": "Low"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 4
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/18"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/18"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Object-based discrete project Failure - from strategy - c57395f4-0ba2-490d-babc-b16b0a3b3a09</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 2</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 81%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Debate although represent throughout green sign.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/15"
+                >Repair #15 — Object-based discrete project Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Camera",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "High",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM023"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Camera",
+      "confidence": 0.75,
+      "diagnosis_code": "Object-based discrete project Failure",
+      "explanation": "Diagnosed based on conditions related to Object-based discrete project Failure and recommending repair ID 15",
+      "severity": "High"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 15
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/6"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/6"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Implemented methodical knowledgebase Failure - born strategy - 2c61a92a-874a-43ce-87a2-a1753c49791f</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 2</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 79%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Interest power capital thus image prepare no end blue.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/7"
+                >Repair #7 — Implemented methodical knowledgebase Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Charging",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Low",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM015"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Charging",
+      "confidence": 0.77,
+      "diagnosis_code": "Implemented methodical knowledgebase Failure",
+      "explanation": "Diagnosed based on conditions related to Implemented methodical knowledgebase Failure and recommending repair ID 7",
+      "severity": "Low"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 7
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/8"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/8"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Implemented methodical knowledgebase Failure - scientist strategy - cb4b67f9-4514-41cf-8332-3d83bb1bf142</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 2</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 66%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Authority gun standard section several perform nor stop Republican.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/4"
+                >Repair #4 — Implemented methodical knowledgebase Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Charging",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Low",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM001"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Charging",
+      "confidence": 0.71,
+      "diagnosis_code": "Implemented methodical knowledgebase Failure",
+      "explanation": "Diagnosed based on conditions related to Implemented methodical knowledgebase Failure and recommending repair ID 4",
+      "severity": "Low"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 4
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/11"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/11"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Grass-roots needs-based workforce Failure - discuss strategy - d503f4c5-12d7-478f-ad38-5c81280c966f</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 2</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 53%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> International author up reach democratic season adult respond.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/1"
+                >Repair #1 — Grass-roots needs-based workforce Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Screen",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Medium",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM020"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Screen",
+      "confidence": 1.0,
+      "diagnosis_code": "Grass-roots needs-based workforce Failure",
+      "explanation": "Diagnosed based on conditions related to Grass-roots needs-based workforce Failure and recommending repair ID 1",
+      "severity": "Medium"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 1
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/24"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/24"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Intuitive foreground complexity Failure - push strategy - a47294b0-8e08-4f21-97d2-790c98ae4b25</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 1</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 99%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Spend ask large role society present mention.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/13"
+                >Repair #13 — Intuitive foreground complexity Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Camera",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Medium",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM007"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Camera",
+      "confidence": 0.96,
+      "diagnosis_code": "Intuitive foreground complexity Failure",
+      "explanation": "Diagnosed based on conditions related to Intuitive foreground complexity Failure and recommending repair ID 13",
+      "severity": "Medium"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 13
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/7"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/7"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Rule for Intuitive foreground complexity Failure - into strategy - a034ce6f-eddb-4983-86e7-f606c33ddd47</h5>
+              <div>
+                <span class="badge bg-primary"
+                  >Priority: 1</span
+                >
+                <span class="badge bg-success"
+                  >Confidence: 80%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p><strong>Description:</strong> Door image skin different campaign minute option plan young age.</p>
+            
+            <p>
+              <strong>Recommended Repair:</strong>
+              <a
+                href="/admin/repairs/edit/24"
+                >Repair #24 — Intuitive foreground complexity Failure</a
+              >
+            </p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6><i class="bi bi-input-cursor"></i> Conditions (IF):</h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "conditions": [
+        {
+          "args": {
+            "expected_value": "Camera",
+            "fact_name": "category"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "expected_value": "Medium",
+            "fact_name": "severity"
+          },
+          "function": "fact_equals"
+        },
+        {
+          "args": {
+            "symptom_code": "SYM007"
+          },
+          "function": "symptom_is_present"
+        }
+      ]
+    },
+    "function": "AND"
+  }
+]</code></pre>
+                </details>
+              </div>
+              <div class="col-md-6">
+                <details>
+                  <summary>
+                    <h6>
+                      <i class="bi bi-arrow-right-circle"></i> Actions (THEN):
+                    </h6>
+                  </summary>
+                  <pre><code class="language-json">[
+  {
+    "args": {
+      "category": "Camera",
+      "confidence": 0.92,
+      "diagnosis_code": "Intuitive foreground complexity Failure",
+      "explanation": "Diagnosed based on conditions related to Intuitive foreground complexity Failure and recommending repair ID 24",
+      "severity": "Medium"
+    },
+    "function": "set_diagnosis"
+  },
+  {
+    "args": {
+      "key": "recommended_repair_id",
+      "value": 24
+    },
+    "function": "add_to_working_memory"
+  }
+]</code></pre>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a
+              href="/admin/rules/edit/20"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form
+              action="/admin/rules/delete/20"
+              method="POST"
+              class="d-inline"
+              onsubmit="return confirm('Are you sure you want to delete this rule?');"
+            >
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        
+
+        <div class="alert alert-info mt-4">
+          <i class="bi bi-info-circle"></i>
+          <strong>Note:</strong> Rules are executed in priority order (highest
+          first). The inference engine uses forward chaining to derive
+          conclusions from symptoms.
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <a href="/admin/dashboard" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+</div>
+</main>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-muted py-4 mt-5">
+      <div class="container">
+        <p class="mb-0">
+          &copy; 2024 Phone Repair Advisor Expert System | Powered by AI
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/main.js"></script>
+
+    <!-- jQuery and Select2 (loaded after main.js; initialization below handles document ready state) -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJ+YRF0vP3zvFv6b6e3Yqj8Q+X2c9o9fM1p6U="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+      (function () {
+        function initSelect2() {
+          if (window.jQuery && jQuery().select2) {
+            jQuery(".select2").select2({ width: "100%" });
+          }
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initSelect2);
+        } else {
+          initSelect2();
+        }
+      })();
+    </script>
+
+    
+  </body>
+</html>
